@@ -1,0 +1,2007 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+<title>武汉中考三年打卡 · AI学习资料库</title>
+<meta name="description" content="2029 届武汉中考三年学习打卡表 · 每日/每周任务清单 · 艾宾浩斯错题本 · 情绪记录 · 断网也能打卡">
+<meta name="theme-color" content="#5B5FE3">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="中考打卡">
+<style>
+:root{
+  /* 主色：蓝紫 */
+  --p:#5B5FE3;
+  --p-light:#E8E9FF;
+  --p-mid:#8A8EF7;
+  --p-dark:#4548C7;
+  /* 辅助色 */
+  --a1:#4ADE80;   /* 薄荷绿：完成/成功 */
+  --a1-light:#E8FCEF;
+  --a2:#FB923C;   /* 暖橙：提醒/警告 */
+  --a2-light:#FFF2E6;
+  --a3:#38BDF8;   /* 天空蓝：信息/次操作 */
+  --a3-light:#E7F7FE;
+  --a4:#F472B6;   /* 柔粉：情绪/标签 */
+  --a4-light:#FDEDF6;
+  /* 中性 */
+  --bg:#F3F4FF;
+  --card:#FFFFFF;
+  --txt:#1E1B4B;
+  --txt2:#6B6B9C;
+  --txt3:#A6A6C6;
+  --line:#E1E2F6;
+  --radius:22px;
+  --radius-sm:16px;
+  --radius-xs:12px;
+  --shadow:0 4px 20px rgba(91,95,227,.10),0 12px 40px rgba(30,27,75,.06);
+  --shadow-sm:0 2px 10px rgba(91,95,227,.08);
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#13142B;--card:#1E2040;--txt:#F0F0FF;--txt2:#A9A9CC;--txt3:#6C6C99;
+    --line:#2E305A;--p-light:#25274A;--a1-light:#1A2E22;--a2-light:#382713;--a3-light:#152A3A;--a4-light:#3A1F31;
+    --shadow:0 4px 20px rgba(0,0,0,.25),0 12px 40px rgba(0,0,0,.30);
+    --shadow-sm:0 2px 10px rgba(0,0,0,.25);
+  }
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg);color:var(--txt);
+  font:15px/1.55 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
+  padding-bottom:calc(82px + env(safe-area-inset-bottom));
+  overflow-x:hidden;
+}
+h1,h2,h3{margin:0;font-weight:700}
+button{font-family:inherit;font-size:inherit;color:inherit}
+
+/* ---------- 顶部横幅 ---------- */
+.topbar{
+  position:sticky;top:0;z-index:50;
+  background:var(--bg);
+  padding:calc(env(safe-area-inset-top) + 14px) 16px 0;
+}
+.banner{
+  background:linear-gradient(135deg,var(--p) 0%,#7B7EF7 100%);
+  border-radius:var(--radius);color:#fff;
+  padding:18px 18px 16px;box-shadow:var(--shadow);
+  display:flex;align-items:center;gap:14px;overflow:hidden;
+}
+.banner-main{flex:1;min-width:0}
+.banner h1{font-size:20px;line-height:1.25;margin-bottom:4px}
+.banner h1 span{font-weight:500;opacity:.9}
+.banner p{margin:0;font-size:12.5px;opacity:.88;line-height:1.5}
+.banner .meta{display:flex;gap:14px;margin-top:12px;flex-wrap:wrap}
+.banner .meta b{display:block;font-size:22px;font-weight:800;line-height:1}
+.banner .meta span{font-size:10.5px;opacity:.85}
+.banner-img{flex:0 0 auto;width:120px;height:120px;border-radius:var(--radius-sm);
+  background:rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center}
+.banner-img img{width:100%;height:100%;object-fit:contain}
+@media(min-width:768px){.banner-img{width:150px;height:150px}}
+
+/* 顶部授权状态条 */
+.lic-state{margin-top:12px;display:inline-block;font-size:12px;font-weight:700;
+  padding:5px 12px;border-radius:999px;backdrop-filter:blur(2px)}
+.lic-state.trial{background:rgba(255,255,255,.28);color:#fff}
+.lic-state.ok{background:rgba(74,222,128,.92);color:#06381f}
+.lic-state.locked{background:rgba(251,146,60,.95);color:#5a2a06}
+@media(min-width:768px){.lic-state{font-size:13px}}
+
+/* ---------- 视图 ---------- */
+.view{padding:16px 16px 24px;max-width:680px;margin:0 auto}
+@media(min-width:768px){
+  .view{padding:22px 22px 30px;max-width:860px}
+  .home-grid{grid-template-columns:repeat(6,1fr)}
+  .home-item{padding:18px 8px 14px}
+  .home-3d{width:72px;height:72px}
+}
+
+.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow-sm);
+  padding:18px;margin-bottom:16px}
+.card-h{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+.card-h h2{font-size:16px}
+.card-h .hint{font-size:12px;color:var(--txt3);text-align:right;flex:0 0 auto}
+.card.soft{background:var(--p-light)}
+
+/* ---------- 宫格 ---------- */
+.home-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+.home-item{background:var(--card);border-radius:var(--radius-sm);box-shadow:var(--shadow-sm);
+  padding:14px 8px 12px;text-align:center;cursor:pointer;transition:.15s;
+  display:flex;flex-direction:column;align-items:center;gap:8px}
+.home-item:active{transform:scale(.98)}
+.home-3d{width:68px;height:68px;object-fit:contain}
+.home-t{font-size:13px;font-weight:700;color:var(--txt)}
+.home-s{font-size:10.5px;color:var(--txt3)}
+
+/* ---------- 日期导航 ---------- */
+.date-nav{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.nav-btn{width:36px;height:36px;border-radius:12px;border:1px solid var(--line);
+  background:var(--card);font-size:20px;line-height:1;cursor:pointer;color:var(--txt2);flex:0 0 auto;box-shadow:var(--shadow-sm)}
+.nav-btn:disabled{opacity:.4}
+.date-mid{flex:1;text-align:center}
+.date-big{font-size:17px;font-weight:700}
+.date-big .wd{font-size:12px;font-weight:500;color:var(--txt3);margin-left:4px}
+.date-sub{font-size:11.5px;color:var(--txt3);margin-top:2px}
+
+/* ---------- 进度环 ---------- */
+.ring-wrap{display:flex;align-items:center;gap:16px}
+.ring{width:68px;height:68px;flex:0 0 auto;transform:rotate(-90deg)}
+.ring-bg{fill:none;stroke:var(--line);stroke-width:6}
+.ring-fg{fill:none;stroke:var(--p);stroke-width:6;stroke-linecap:round;transition:stroke-dashoffset .45s ease}
+.ring-side{flex:1;min-width:0}
+.ring-title{font-size:15px;font-weight:700}
+.ring-note{font-size:12px;color:var(--txt2);margin-top:3px}
+
+/* ---------- 方案 chips ---------- */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:var(--card);border-radius:20px;
+  padding:7px 14px;font-size:12.5px;cursor:pointer;color:var(--txt2);transition:.15s}
+.chip.on{background:var(--p);border-color:var(--p);color:#fff;font-weight:600}
+.slogan{margin:12px 0 0;font-size:12.5px;line-height:1.7;color:var(--txt2);
+  background:var(--p-light);border-radius:var(--radius-xs);padding:10px 12px}
+.mini-list{margin:0;padding-left:18px;font-size:12.5px;color:var(--txt2);line-height:1.8}
+.mini-list li{margin-bottom:6px}
+
+/* ---------- 任务清单 ---------- */
+.tasks{display:flex;flex-direction:column;gap:10px}
+.task{display:flex;gap:12px;align-items:center;padding:13px 14px;border:1px solid var(--line);
+  border-radius:var(--radius-sm);cursor:pointer;transition:.15s;background:var(--card);box-shadow:var(--shadow-sm)}
+.task:active{transform:scale(.995)}
+.task.done{background:var(--a1-light);border-color:rgba(74,222,128,.4)}
+.box{width:22px;height:22px;border-radius:50%;border:2px solid var(--txt3);
+  flex:0 0 auto;display:flex;align-items:center;justify-content:center;
+  font-size:12px;color:transparent;transition:.15s}
+.task.done .box{background:var(--a1);border-color:var(--a1);color:#fff}
+.task-main{flex:1;min-width:0}
+.task-t{display:block;font-size:14px;line-height:1.5;font-weight:500}
+.task.done .task-t{color:var(--txt3);text-decoration:line-through}
+.task-tip{display:block;font-size:11.5px;color:var(--txt2);line-height:1.55;margin-top:3px}
+.task-min{flex:0 0 auto;font-size:11px;color:var(--txt3);background:var(--bg);
+  border-radius:20px;padding:3px 9px}
+.task.small{padding:10px 12px;align-items:flex-start}
+.task.warn-task.done{background:var(--a2-light);border-color:rgba(251,146,60,.4)}
+
+/* ---------- 周视图 ---------- */
+.week-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:6px}
+.wd-cell{border-radius:var(--radius-xs);border:1px solid var(--line);padding:7px 2px;text-align:center;
+  cursor:pointer;display:flex;flex-direction:column;gap:2px;background:var(--card);box-shadow:var(--shadow-sm)}
+.wd-cell .wd-n{font-size:10px;color:var(--txt3)}
+.wd-cell .wd-d{font-size:14px;font-weight:700}
+.wd-cell .wd-p{font-size:9.5px;color:var(--txt3)}
+.wd-cell.h{background:var(--a1-light);border-color:rgba(74,222,128,.35)}
+.wd-cell.h .wd-p{color:#16A34A}
+.wd-cell.f{background:var(--a1);border-color:var(--a1);color:#fff}
+.wd-cell.f .wd-n,.wd-cell.f .wd-p{color:rgba(255,255,255,.9)}
+.wd-cell.cur{outline:2.5px solid var(--p);outline-offset:1px}
+.wd-cell.fut{opacity:.35}
+.week-legend{display:flex;align-items:center;gap:6px;font-size:10.5px;color:var(--txt3);margin-top:10px;flex-wrap:wrap}
+.lg{width:11px;height:11px;border-radius:3px;display:inline-block;border:1px solid var(--line);background:var(--card)}
+.lg.f{background:var(--a1);border-color:var(--a1)}
+.lg.h{background:var(--a1-light);border-color:rgba(74,222,128,.35)}
+.lg.lv1{background:#DDF8E6;border-color:#DDF8E6}
+.lg.lv2{background:#A6F4C0;border-color:#A6F4C0}
+.lg.lv3{background:#4ADE80;border-color:#4ADE80}
+.lg.lv4{background:var(--a1);border-color:var(--a1)}
+
+/* ---------- 表单 ---------- */
+.form{display:flex;flex-direction:column;gap:10px}
+.form.inline{flex-direction:row;align-items:center;gap:10px;flex-wrap:wrap;margin-top:12px}
+.fl{font-size:12px;color:var(--txt3)}
+input[type=text],input[type=number],input[type=date],select,textarea{
+  width:100%;border:1px solid var(--line);background:var(--card);color:var(--txt);
+  border-radius:var(--radius-xs);padding:11px 13px;font-size:14px;font-family:inherit;outline:none;box-shadow:var(--shadow-sm)}
+input:focus,select:focus,textarea:focus{border-color:var(--p)}
+textarea{resize:vertical;line-height:1.6}
+.sleep-l{font-size:13px;color:var(--txt2)}
+.sleep-u{font-size:12px;color:var(--txt3)}
+.form.inline input{width:100px}
+.btn{border:1px solid var(--line);background:var(--card);border-radius:var(--radius-xs);
+  padding:11px 16px;font-size:14px;cursor:pointer;transition:.15s;box-shadow:var(--shadow-sm);font-weight:500}
+.btn:active{transform:scale(.98)}
+.btn.primary{background:var(--p);border-color:var(--p);color:#fff;font-weight:600}
+.btn.ghost{background:transparent}
+.btn.danger-ghost{background:transparent;border-color:var(--a4);color:var(--a4);margin-top:8px}
+.btn.block{width:100%}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap}
+.btn-row .btn{flex:1;min-width:100px}
+
+/* ---------- 番茄钟 ---------- */
+.pomodoro{text-align:center;padding:4px 0}
+.pomo-time{font-size:36px;font-weight:800;letter-spacing:1px;font-variant-numeric:tabular-nums;color:var(--p)}
+.pomo-btns{display:flex;gap:10px;justify-content:center;margin-top:10px;flex-wrap:wrap}
+
+/* ---------- 心情 ---------- */
+.mood-row{display:flex;gap:8px;justify-content:space-between}
+.mood{flex:1;border:1px solid var(--line);background:var(--card);border-radius:var(--radius-sm);
+  padding:10px 2px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;transition:.15s;box-shadow:var(--shadow-sm)}
+.mood-e{font-size:24px;line-height:1}
+.mood-n{font-size:10.5px;color:var(--txt3)}
+.mood.on{background:var(--p);border-color:var(--p)}
+.mood.on .mood-n{color:#fff}
+.mood-sum{font-size:14px}
+.warn{margin-top:12px;font-size:12.5px;color:#9A4D16;background:var(--a2-light);
+  border:1px solid var(--a2);border-radius:var(--radius-xs);padding:10px 12px;line-height:1.7}
+.warn.big{margin-top:14px}
+
+/* ---------- 错题 ---------- */
+.wrong-list{display:flex;flex-direction:column;gap:12px}
+.wrong-item{border:1px solid var(--line);border-radius:var(--radius-sm);padding:12px 13px;box-shadow:var(--shadow-sm)}
+.wi-head{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.wi-sub{font-size:11.5px;font-weight:700;background:var(--bg);border-radius:6px;padding:2px 8px}
+.wi-tag{font-size:11px;border-radius:6px;padding:2px 8px;color:#fff;font-weight:500}
+.wi-tag.t-concept{background:#6366F1}
+.wi-tag.t-careless{background:var(--a2)}
+.wi-tag.t-calc{background:var(--a3)}
+.wi-tag.t-method{background:var(--a4)}
+.wi-del{margin-left:auto;border:0;background:transparent;color:var(--txt3);font-size:15px;cursor:pointer;padding:0 2px}
+.wi-text{font-size:13.5px;line-height:1.6;word-break:break-all}
+.wi-steps{display:flex;align-items:center;gap:6px;margin-top:8px;flex-wrap:wrap}
+.wi-label{font-size:11px;color:var(--txt3)}
+.step{font-size:11px;border:1px solid var(--line);border-radius:20px;padding:2px 9px;
+  color:var(--txt3);cursor:pointer}
+.step.due{border-color:var(--a2);color:var(--a2);font-weight:700;background:var(--a2-light)}
+.step.ok{border-color:var(--a1);color:var(--a1)}
+.wi-advice{font-size:11.5px;color:var(--txt2);margin-top:6px;line-height:1.6}
+.empty{font-size:13px;color:var(--txt3);text-align:center;padding:16px 0}
+
+/* 错因统计 */
+.stat-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.stat-name{font-size:12px;width:56px;flex:0 0 auto;color:var(--txt2)}
+.stat-bar{flex:1;height:8px;border-radius:20px;background:var(--line);overflow:hidden}
+.stat-bar i{display:block;height:100%;background:var(--p);border-radius:20px}
+.stat-num{font-size:11px;color:var(--txt3);width:62px;text-align:right;flex:0 0 auto}
+
+/* ---------- 话术 / 方法 ---------- */
+.talk-row{border-top:1px dashed var(--line);padding:10px 0}
+.talk-row:first-child{border-top:0}
+.talk-bad{font-size:12.5px;color:var(--a4);text-decoration:line-through;opacity:.85}
+.talk-good{font-size:13.5px;color:#15803D;font-weight:700;margin-top:2px}
+.talk-why{font-size:11.5px;color:var(--txt3);margin-top:2px}
+.method{display:flex;gap:10px;padding:9px 0;border-top:1px dashed var(--line)}
+.method:first-of-type{border-top:0}
+.m-num{flex:0 0 auto;width:22px;height:22px;border-radius:50%;background:var(--p);
+  color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center;margin-top:2px;font-weight:700}
+.method b{font-size:13.5px}
+.method p{margin:3px 0 0;font-size:12px;color:var(--txt2);line-height:1.7}
+
+/* ---------- 我的 ---------- */
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.stat-box{text-align:center;background:var(--p-light);border-radius:var(--radius-sm);padding:12px 4px}
+.stat-box b{display:block;font-size:20px;color:var(--p)}
+.stat-box span{font-size:10.5px;color:var(--txt3)}
+.heat-wrap{overflow-x:auto;margin-top:14px;padding-bottom:2px}
+.heat{display:flex;gap:3px;min-width:max-content}
+.heat-col{display:flex;flex-direction:column;gap:3px}
+.hd{width:12px;height:12px;border-radius:3px;background:var(--line);display:block}
+.hd.lv1{background:#DDF8E6}.hd.lv2{background:#A6F4C0}
+.hd.lv3{background:#4ADE80}.hd.lv4{background:var(--a1)}
+.hd.fut{opacity:.35}
+
+.tg-row,.pr-row{display:flex;align-items:center;gap:8px;padding:8px 0;border-top:1px dashed var(--line);font-size:13px}
+.tg-row:first-child,.pr-row:first-child{border-top:0}
+.tg-s{width:70px;flex:0 0 auto}
+.tg-f{width:38px;color:var(--txt3);font-size:11.5px;flex:0 0 auto}
+.tg-g{color:var(--p);font-weight:700}
+.pr-lv{flex:0 0 auto;font-size:11px;border-radius:6px;padding:1px 8px;background:var(--line);color:var(--txt2)}
+.pr-row.lv-最高 .pr-lv{background:var(--p);color:#fff}
+.pr-row.lv-高 .pr-lv{background:var(--p-mid);color:#fff}
+.pr-t{flex:0 0 auto;max-width:52%}
+.pr-w{font-size:11.5px;color:var(--txt3);text-align:right;flex:1}
+
+.tl-row{position:relative;padding:8px 0 8px 16px;border-left:2px solid var(--line);margin-left:4px}
+.tl-row:last-child{border-left-color:transparent}
+.tl-row::before{content:"";position:absolute;left:-6px;top:15px;width:9px;height:9px;
+  border-radius:50%;background:var(--line)}
+.tl-row.passed::before{background:var(--p)}
+.tl-date{font-size:11px;color:var(--txt3)}
+.tl-ev{font-size:13.5px;font-weight:700;margin-left:6px}
+.tl-act{display:block;font-size:11.5px;color:var(--txt2);margin-top:1px;line-height:1.6}
+
+.about p{font-size:12.5px;color:var(--txt2);line-height:1.75;margin:0 0 8px}
+.about .disc{color:var(--txt3);font-size:11.5px;border-top:1px dashed var(--line);padding-top:8px}
+.about .wm{text-align:center;color:var(--p);font-size:12px;font-weight:700;margin:10px 0 0;opacity:.85}
+
+/* ---------- 授权 / 激活 ---------- */
+.lic-card .lic-status{font-size:14px;color:var(--txt);margin-bottom:12px;line-height:1.6}
+.lic-badge{display:inline-block;font-size:12px;font-weight:800;padding:3px 10px;border-radius:999px;margin-right:6px;vertical-align:middle}
+.lic-badge.ok{background:var(--a1-light);color:#0a7a3e}
+.lic-badge.trial{background:var(--p-light);color:var(--p-dark)}
+.lic-badge.locked{background:var(--a2-light);color:#b45309}
+
+.lock-card{text-align:center;padding:30px 22px;margin-top:14px}
+.lock-ico{font-size:46px;line-height:1;margin-bottom:8px}
+.lock-card h2{font-size:20px;margin:0 0 10px}
+.lock-sub{font-size:13px;color:var(--txt2);line-height:1.7;margin:0 0 18px}
+.lock-sub b{color:var(--p-dark)}
+.lock-card .form{margin:0 auto;max-width:340px}
+#actCode{text-align:center;letter-spacing:2px;font-size:16px;font-weight:700;text-transform:uppercase}
+.lock-tip{font-size:12px;color:var(--txt3);line-height:1.7;margin:14px 0 0}
+
+.quote{display:flex;gap:10px;background:var(--p-light);border-radius:var(--radius-sm);padding:14px}
+.q-mark{font-size:28px;color:var(--p);line-height:1;flex:0 0 auto}
+.quote p{margin:0;font-size:13px;line-height:1.8;color:var(--txt2)}
+
+/* ---------- 全宽底部导航（手机/平板自适应） ---------- */
+.tabbar{position:fixed;left:0;right:0;bottom:0;width:100%;z-index:60;
+  display:flex;background:var(--card);border-top:1px solid var(--line);
+  box-shadow:0 -4px 16px rgba(30,27,75,.06);
+  padding:6px 4px;padding-bottom:calc(6px + env(safe-area-inset-bottom))}
+.tab{flex:1;border:0;background:transparent;padding:7px 4px 4px;margin:0 2px;cursor:pointer;min-width:0;position:relative;
+  display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--txt3);
+  border-radius:14px;transition:.15s}
+.tab-ico{font-size:20px;line-height:1.2}
+.tab-txt{font-size:11px}
+.tab.active{background:var(--p-light);color:var(--p)}
+.tab.active .tab-ico{transform:scale(1.1)}
+/* 平板：导航条仍铺满整宽，按钮居中聚拢、不拉得过散 */
+@media(min-width:768px){
+  .tabbar{justify-content:center;
+    padding-left:max(16px,env(safe-area-inset-left));
+    padding-right:max(16px,env(safe-area-inset-right))}
+  .tab{flex:0 1 150px;margin:0 6px}
+}
+
+/* 未激活时「我的」Tab 上的轻量锁标 */
+.tab-lock{position:absolute;top:2px;right:50%;transform:translateX(18px);font-size:11px;line-height:1}
+
+/* ---------- 激活弹窗 ---------- */
+.modal-mask{position:fixed;inset:0;z-index:60;background:rgba(20,18,52,.55);
+  display:flex;align-items:center;justify-content:center;padding:24px;
+  backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}
+.modal-mask[hidden]{display:none}
+.modal{width:100%;max-width:360px;background:#fff;border-radius:22px;padding:26px 22px 20px;
+  text-align:center;box-shadow:0 18px 50px rgba(20,18,52,.35);animation:pop .18s ease-out}
+@keyframes pop{from{transform:scale(.92);opacity:0}to{transform:scale(1);opacity:1}}
+.modal-ico{font-size:42px;line-height:1;margin-bottom:6px}
+.modal h2{font-size:19px;margin:0 0 10px;color:var(--p-dark)}
+.modal-sub{font-size:13px;color:var(--txt2);line-height:1.7;margin:0 0 16px}
+.modal-sub b{color:var(--p-dark)}
+.modal .form{margin:0 auto;max-width:320px}
+.modal-close{margin-top:14px;background:transparent;border:0;color:var(--txt3);
+  font-size:13px;padding:6px 10px;cursor:pointer}
+
+/* ---------- Toast ---------- */
+.toast{position:fixed;left:50%;bottom:calc(86px + env(safe-area-inset-bottom));
+  transform:translateX(-50%) translateY(8px);background:rgba(30,27,75,.92);color:#fff;
+  font-size:13px;padding:10px 18px;border-radius:24px;z-index:99;opacity:0;
+  transition:.25s;pointer-events:none;max-width:86vw;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ---------- 打印 ---------- */
+@media print{
+  body{background:#fff;padding:0}
+  .topbar,.tabbar,.toast{display:none!important}
+  .view{padding:0;max-width:none}
+  .card{box-shadow:none;border:1px solid #DDD;break-inside:avoid;page-break-inside:avoid}
+  .card.soft{background:#fff}
+}
+
+</style>
+<script>
+/* 最早执行的错误捕获：任何脚本报错都记录下来，供自检面板显示 */
+window.__APP_ERRS = [];
+window.addEventListener('error', function (e) {
+  try { window.__APP_ERRS.push((e.message || '未知错误') + ' @行' + (e.lineno || '?')); } catch (x) {}
+}, true);
+</script>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="banner">
+    <div class="banner-main">
+      <h1>武汉中考 <span id="stageLine">初一 · 上学期</span></h1>
+      <p>目标四大名高 · 快乐学习每一天</p>
+      <div class="meta">
+        <div><b id="cdDays">--</b><span>中考倒计时</span></div>
+        <div><b id="todayRate">--%</b><span>今日完成</span></div>
+        <div><b id="streakDays">--</b><span>连续打卡</span></div>
+      </div>
+    </div>
+    <div class="banner-img">
+      <img src="icons/3d/3d-banner.png" alt="学习打卡">
+    </div>
+  </div>
+</header>
+
+<main id="view" class="view"></main>
+
+<nav class="tabbar">
+  <button class="tab active" data-tab="today"><span class="tab-ico">✓</span><span class="tab-txt">今日</span></button>
+  <button class="tab" data-tab="week"><span class="tab-ico">▤</span><span class="tab-txt">本周</span></button>
+  <button class="tab" data-tab="wrong"><span class="tab-ico">✎</span><span class="tab-txt">错题</span></button>
+  <button class="tab" data-tab="mood"><span class="tab-ico">☺</span><span class="tab-txt">情绪</span></button>
+  <button class="tab" data-tab="me"><span class="tab-ico">◕</span><span class="tab-txt">我的</span></button>
+</nav>
+
+<div id="toast" class="toast" hidden></div>
+<input id="importFile" type="file" accept="application/json,.json" hidden>
+
+<div id="licModal" class="modal-mask" hidden>
+  <div class="modal">
+    <div class="modal-ico">🔒</div>
+    <h2>需要激活码解锁</h2>
+    <p class="modal-sub">先输入激活码，就能继续打卡：解锁 <b>3 年</b>完整功能（每日 / 每周清单、错题本、情绪记录、全部统计），一路用到中考。</p>
+    <div class="form">
+      <input id="actCodeModal" type="text" autocapitalize="characters" maxlength="20" placeholder="XXXX-XXXX-XXXX-XXXX">
+      <button class="btn primary block" id="licModalAct">激活并解锁</button>
+    </div>
+    <p class="lock-tip">激活码一码绑定一台设备；请到「我的」页或购买渠道获取。激活后断网也能照常打卡。</p>
+    <button class="modal-close" id="licModalClose">稍后再说</button>
+  </div>
+</div>
+
+<script charset="UTF-8">
+/* 武汉中考三年打卡 · 内容数据
+ * 全部内容来自《武汉中考三年学习规划》，按 2029 届（2026 年 9 月入学）整理
+ * 政策细节以武汉市教育局当年发布为准
+ */
+window.DATA = (function () {
+
+  /* ---------- 四套方案 ---------- */
+  const PLANS = {
+    balanced: {
+      key: 'balanced',
+      name: '各科均衡型',
+      short: '均衡',
+      desc: '三科没有明显短板，重点是习惯与节奏',
+      caution: '均衡型也要动态盯短板，每月看一次排名最低的科'
+    },
+    math: {
+      key: 'math',
+      name: '数学偏弱型',
+      short: '数学弱',
+      desc: '数学排名明显落后，先补计算与课本例题',
+      caution: '目标 105-110 而不是 118，把时间花在能到手的分上'
+    },
+    chinese: {
+      key: 'chinese',
+      name: '语文偏弱型',
+      short: '语文弱',
+      desc: '现代文阅读、作文、古诗文默写是主战场',
+      caution: '语文是最慢的学科，靠零存整取，别指望突击'
+    },
+    english: {
+      key: 'english',
+      name: '英语偏弱型',
+      short: '英语弱',
+      desc: '词汇量是根，听力阅读是最大涨分点',
+      caution: '英语弱基本 = 词汇弱，每天 40 分钟雷打不动'
+    }
+  };
+
+  /* ---------- 每日清单：方案 → 年级(1/2/3) → 任务 ---------- */
+  const DAILY = {
+    balanced: {
+      1: {
+        minutes: 90,
+        slogan: '均衡型的核心是初一养习惯：三周内让这套流程不需要提醒就能跑起来。',
+        items: [
+          { t: '限时完成当日作业（先数学后其他）', tip: '数学作业当考试计时，锻炼考场速度', min: 50 },
+          { t: '主科轮换加餐：周一三五数学 1 道压轴+3 道基础；周二四英语听力 10 分钟+阅读 1 篇', tip: '轮换制保证三主科每周都有触及，单日压力小', min: 25 },
+          { t: '语文积累：10 个成语/文学常识 或 古诗 1 首（读 3 遍+默写关键句）', tip: '语文是慢功夫，靠零存整取', min: 10 },
+          { t: '重做旧错题（艾宾浩斯队列里到期的题）', tip: '遮住答案重做，连续两次全对的题划掉销号', min: 10 },
+          { t: '睡前过电影：口述今天 3 个知识点', tip: '躺着说给妈妈听也行，说不出的明天翻书', min: 5 }
+        ]
+      },
+      2: {
+        minutes: 100,
+        slogan: '初二均衡型警惕物理和数学的隐性下滑，每次月考盯物理排名。',
+        items: [
+          { t: '限时完成当日作业（数学物理优先）', tip: '物理作业必须当天弄懂，不留隔夜债', min: 50 },
+          { t: '主科轮换加餐：周一三五数学（函数/几何专题）；周二四英语（听力+完形）', tip: '初二数学全等三角形与一次函数是中考大分模块', min: 25 },
+          { t: '物理当日复习：概念图补一笔 / 课本例题遮住重做 1 道', tip: '物理前两个月每天 10 分钟，决定一整年', min: 10 },
+          { t: '地生保温（3—6 月替换上一条）：真题选择题 15 道', tip: '会考等级不过关，普高资格受影响', min: 10, months: [3, 4, 5, 6] },
+          { t: '重做旧错题（艾宾浩斯队列里到期的题）', tip: '遮住答案重做，连续两次全对的题划掉销号', min: 10 },
+          { t: '睡前过电影：口述今天 3 个知识点', tip: '躺着说给妈妈听也行，说不出的明天翻书', min: 5 }
+        ]
+      },
+      3: {
+        minutes: 95,
+        slogan: '初三均衡型按部就班跟住三轮复习即可，不需要额外加量。',
+        items: [
+          { t: '在校清掉至少一半书面作业（自习课+午休）', tip: '初三的胜负手在白天的校内时间', min: 0, inSchool: true },
+          { t: '限时作业 + 化学当日复习', tip: '化学只学一年，别欠账；性价比之王，所有人同时起步', min: 40 },
+          { t: '弱科主攻 25 分钟（按月考诊断结果选模块）', tip: '均衡型初三也要开始聚焦最大漏洞', min: 25 },
+          { t: '中考真题 1 组（数学 3 题 / 英语 1 篇 / 理化 5 选择，轮流）', tip: '从初三上就开始碰真题，熟悉出题手感', min: 15 },
+          { t: '重做旧错题（艾宾浩斯队列里到期的题）', tip: '遮住答案重做，连续两次全对的题划掉销号', min: 10 },
+          { t: '睡前过电影：口述今天 3 个知识点', tip: '躺着说给妈妈听也行，说不出的明天翻书', min: 5 }
+        ]
+      }
+    },
+
+    math: {
+      1: {
+        minutes: 95,
+        slogan: '数学弱的孩子最怕"觉得自己笨"。初一漏洞（计算/概念）最好补，这一年补齐，初二初三不恐慌。',
+        items: [
+          { t: '限时完成当日作业（数学放最后写，防止情绪内耗）', tip: '先做顺的科目进入状态，再用好状态打数学', min: 45 },
+          { t: '数学主攻一：计算基本功（有理数/整式混合运算 10 道，限时 8 分钟）', tip: '初一数学弱 60% 是计算不稳，先治这个', min: 12 },
+          { t: '数学主攻二：当天课上例题遮住重做 2 道', tip: '"听懂"和"会做"之间隔着独立重做这一步', min: 15 },
+          { t: '英语保温：听力 8 分钟 或 单词 15 个', tip: '弱科要加餐，强科只保温', min: 8 },
+          { t: '重做旧错题（艾宾浩斯队列里到期的题）', tip: '遮住答案重做，连续两次全对的题划掉销号', min: 10 },
+          { t: '睡前过电影：口述今天 3 个知识点', tip: '躺着说给妈妈听也行，说不出的明天翻书', min: 5 }
+        ]
+      },
+      2: {
+        minutes: 103,
+        slogan: '初二是数学分水岭，弱科加码期。允许英语语文暂时"只保温不进步"，集中火力打数学。',
+        items: [
+          { t: '限时完成当日作业', tip: '物理当天弄懂，数学放到专门时段', min: 45 },
+          { t: '数学主攻：全等三角形 / 一次函数，从课本例题刷起（不碰难题）', tip: '初二数学弱，先回归课本，别被课外班难题打击信心', min: 25 },
+          { t: '计算限时练：10 道混合运算（含根式/因式分解）', tip: '计算是数学的握力，每天摸', min: 10 },
+          { t: '英语保温：听力 8 分钟', tip: '每天 8 分钟，英语不退步就是胜利', min: 8 },
+          { t: '重做旧错题（艾宾浩斯队列里到期的题）', tip: '遮住答案重做，连续两次全对的题划掉销号', min: 10 },
+          { t: '睡前过电影：口述今天 3 个知识点', tip: '躺着说给妈妈听也行，说不出的明天翻书', min: 5 }
+        ]
+      },
+      3: {
+        minutes: 70,
+        slogan: '初三数学弱要"断舍离"：目标 105-110 而不是 118，把时间花在能到手的分上。',
+        items: [
+          { t: '在校清作业，回家只留数学与化学', tip: '初三弱科要"整块时间"，碎片时间清其他科', min: 0, inSchool: true },
+          { t: '数学一轮补漏：按漏洞清单逐个模块击破（函数图像 / 几何证明 / 应用题）', tip: '先补占分高且短期能会的：函数与方程应用', min: 30 },
+          { t: '基础题限时组：选择填空 10 道限时 15 分钟，正确率目标 90%', tip: '弱科策略 = 保住前 100 分，压轴最后一问战略性放弃', min: 15 },
+          { t: '化学当日复习', tip: '化学同样偏理，初一数学弱的孩子要防化学重蹈覆辙', min: 10 },
+          { t: '重做旧错题（艾宾浩斯队列里到期的题）', tip: '遮住答案重做，连续两次全对的题划掉销号', min: 10 },
+          { t: '睡前过电影：口述今天 3 个知识点', tip: '躺着说给妈妈听也行，说不出的明天翻书', min: 5 }
+        ]
+      }
+    },
+
+    chinese: {
+      1: {
+        minutes: 95,
+        slogan: '语文是最慢的学科，初一启动性价比最高。这一年把古诗文和基础字词拿下，弱科就去了大半。',
+        items: [
+          { t: '限时完成当日作业', tip: '语文作业里的阅读题认真写，那是练习量', min: 45 },
+          { t: '语文积累：古诗文 1 首（读 3 遍 → 默写 → 对照原文标错字）', tip: '古诗文默写是纯送分题，弱语文最该先拿', min: 15 },
+          { t: '字词过关：当日课本生字词听写（妈妈报听写 10 个）', tip: '基础题丢分最冤，也最好治', min: 8 },
+          { t: '数学保温：当日例题重做 1 道 + 计算 5 道', tip: '语文弱的孩子数学通常不差，别让它冷掉', min: 12 },
+          { t: '重做旧错题（艾宾浩斯队列里到期的题）', tip: '遮住答案重做，连续两次全对的题划掉销号', min: 10 },
+          { t: '睡前过电影：口述今天 3 个知识点', tip: '躺着说给妈妈听也行，说不出的明天翻书', min: 5 }
+        ]
+      },
+      2: {
+        minutes: 100,
+        slogan: '阅读理解弱不是"没天赋"，是没被示范过"标准答案怎么写"。找带详细解析的教辅，逐句对照。',
+        items: [
+          { t: '限时完成当日作业', tip: '物理当天弄懂，留出整块时间给语文', min: 45 },
+          { t: '语文阅读精练：1 篇现代文阅读（限时 15 分钟做完 → 对答案 → 研究答案怎么"长出来"的）', tip: '阅读弱的关键是不懂"答题套路"，精研 30 篇胜过瞎刷 100 篇', min: 20 },
+          { t: '古诗文积累 1 首 + 文言实词 3 个', tip: '文言文靠实词量，三年 150 个常考实词足够', min: 10 },
+          { t: '物理当日复习 10 分钟', tip: '初二别让物理变成第二个弱科', min: 10 },
+          { t: '重做旧错题（艾宾浩斯队列里到期的题）', tip: '遮住答案重做，连续两次全对的题划掉销号', min: 10 },
+          { t: '睡前过电影：口述今天 3 个知识点', tip: '躺着说给妈妈听也行，说不出的明天翻书', min: 5 }
+        ]
+      },
+      3: {
+        minutes: 70,
+        slogan: '初三语文提分靠作文和答题规范，别再把时间花在泛泛读书上。',
+        items: [
+          { t: '在校清作业', tip: '把整块时间留给语文主攻', min: 0, inSchool: true },
+          { t: '语文主攻：作文（每两周 1 篇完整写+按范文改）与阅读专题（隔日轮换）', tip: '作文 45 分是语文最大涨分点：素材本 + 每周 1 个段落仿写', min: 25 },
+          { t: '古诗文与基础滚动复习', tip: '6 分默写 + 4 分字词，必须全拿', min: 10 },
+          { t: '数理化当日复习与错题重做', tip: '理科不能为语文让路，两手都要硬', min: 20 },
+          { t: '重做旧错题（艾宾浩斯队列里到期的题）', tip: '遮住答案重做，连续两次全对的题划掉销号', min: 10 },
+          { t: '睡前过电影：口述今天 3 个知识点', tip: '躺着说给妈妈听也行，说不出的明天翻书', min: 5 }
+        ]
+      }
+    },
+
+    english: {
+      1: {
+        minutes: 95,
+        slogan: '英语弱基本 = 词汇弱。初一每天 15 词，一年就是 5000 词次接触，初三前能彻底翻身。',
+        items: [
+          { t: '限时完成当日作业', tip: '英语作业放最前面做，趁精力好听读效果最好', min: 45 },
+          { t: '单词主攻：当日 15 个新词（拼读记忆 → 自测 → 错词写 3 遍）', tip: '词汇量是英语的一切，音标不熟的先补音标', min: 15 },
+          { t: '听力磨耳朵：课本录音或分级读物音频 10 分钟', tip: '听力 25 分，是最容易练出来的板块', min: 10 },
+          { t: '数学保温：当日例题重做 1 道', tip: '强科只保温，把火力留给英语', min: 10 },
+          { t: '重做旧错题（艾宾浩斯队列里到期的题）', tip: '遮住答案重做，连续两次全对的题划掉销号', min: 10 },
+          { t: '睡前过电影：口述今天 3 个知识点', tip: '躺着说给妈妈听也行，说不出的明天翻书', min: 5 }
+        ]
+      },
+      2: {
+        minutes: 100,
+        slogan: '英语是投入产出比最线性的学科：每天 40 分钟雷打不动，一学期排名必涨。',
+        items: [
+          { t: '限时完成当日作业', tip: '物理当天弄懂，英语放精力最好的时段', min: 45 },
+          { t: '单词主攻：15 新词 + 昨日词滚动自测', tip: '用 1-3-7-21 滚动表，抗遗忘', min: 15 },
+          { t: '语法 + 阅读隔日轮换：语法填空 10 空 / 阅读理解 2 篇限时', tip: '语法弱先攻时态和从句两大块', min: 15 },
+          { t: '物理当日复习', tip: '初二英语弱的孩子最容易物理也滑坡，盯紧', min: 10 },
+          { t: '重做旧错题（艾宾浩斯队列里到期的题）', tip: '遮住答案重做，连续两次全对的题划掉销号', min: 10 },
+          { t: '睡前过电影：口述今天 3 个知识点', tip: '躺着说给妈妈听也行，说不出的明天翻书', min: 5 }
+        ]
+      },
+      3: {
+        minutes: 70,
+        slogan: '初三才开始补英语也不晚，但要"粗暴"：直接对准中考题型练，不再学"英语"而是练"考试"。',
+        items: [
+          { t: '在校清作业', tip: '回家时间全部给英语和化学', min: 0, inSchool: true },
+          { t: '英语主攻：中考词汇滚动背（每天 30 词快过 + 错词本）', tip: '初三英语弱第一责任人还是词汇量，1600 词过完 3 遍', min: 15 },
+          { t: '听力 + 阅读限时组合：听力 1 组 + 阅读 1 篇', tip: '听力阅读合计约 70 分，弱科提分主战场', min: 15 },
+          { t: '作文模板积累：背 1 个句型 + 仿写 2 句', tip: '英语作文是"默写题"，模板句背熟即得分', min: 10 },
+          { t: '化学当日复习', tip: '化学所有人同一起跑线，别让新科变新漏洞', min: 10 },
+          { t: '重做旧错题（艾宾浩斯队列里到期的题）', tip: '遮住答案重做，连续两次全对的题划掉销号', min: 10 },
+          { t: '睡前过电影：口述今天 3 个知识点', tip: '躺着说给妈妈听也行，说不出的明天翻书', min: 5 }
+        ]
+      }
+    }
+  };
+
+  /* ---------- 每周清单：通用 8 项 ---------- */
+  const WEEKLY_COMMON = [
+    { t: '每日清单本周至少完成 4 天', tip: '允许一天失手，别让一次断档变成放弃' },
+    { t: '数学错题本周重做一遍（3 天前、7 天前到期的题）', tip: '配合每日 10 分钟重做' },
+    { t: '英语单词周测：本周所学约 100 词，错词进生词本下周重测', tip: '英语弱型必做；均衡 / 语文弱型可降为 50 词' },
+    { t: '语文：本周古诗文默写全部过关 + 1 篇现代文阅读精练', tip: '语文弱型加做 1 篇；其他情况保底' },
+    { t: '体育锻炼 3 次 × 30 分钟（跑步 + 跳绳为主）', tip: '体育现场 35 分，从初一开始练，初三不吃亏' },
+    { t: '周日晚家庭会 20 分钟：孩子讲一道本周最有意思的题', tip: '费曼讲题 + 下周计划，顺便聊天' },
+    { t: '半天纯玩：完全不看书的休息', tip: '写进清单的休息才是理直气壮的休息' },
+    { t: '错题本"销号"仪式：本周连续两次全对的题划掉', tip: '看得见的进步是最好的坚持理由' }
+  ];
+
+  /* ---------- 每周清单：按方案加餐 ---------- */
+  const WEEKLY_EXTRA = {
+    balanced: [
+      { t: '自选加餐：本周哪科月考排名最低，周末补哪科 1 小时', tip: '均衡型也要动态盯短板' }
+    ],
+    math: [
+      { t: '周末数学限时小卷（选择填空 + 2 道中档题，40 分钟）', tip: '只测不练的"体检"，暴露漏洞给下周计划' },
+      { t: '物理（初二起）概念图补全 1 张', tip: '数学弱的孩子往往理科思维待建，图示化帮助大' }
+    ],
+    chinese: [
+      { t: '周末自由阅读 1 小时（喜欢的书都行）+ 摘抄 3 句', tip: '阅读量是语感的原料，允许看"闲书"' }
+    ],
+    english: [
+      { t: '周末英语原声输入 1 小时（英文动画 / 电影 / 纪录片）', tip: '语感 + 听力，快乐教育两不误' },
+      { t: '本周 100 词大自测（错词写 5 遍进滚动表）', tip: '词汇是英语弱型的生命线' }
+    ]
+  };
+
+  /* ---------- 错题错因标签 ---------- */
+  const WRONG_TAGS = [
+    { key: 'concept', name: '概念不清', advice: '回课本重看这一节的定义与例题，别急着刷更多新题' },
+    { key: 'careless', name: '审题失误', advice: '做题先圈关键词，读第二遍题干再动笔' },
+    { key: 'calc', name: '计算失误', advice: '每天加 5 分钟限时计算，练的是握力不是智商' },
+    { key: 'method', name: '方法不会', advice: '这一章要回炉重听，而不是刷更多新题' }
+  ];
+
+  /* ---------- 艾宾浩斯重做节奏 ---------- */
+  const EBBINGHAUS = [1, 3, 7, 21];
+
+  /* ---------- 压力超载信号 ---------- */
+  const STRESS_SIGNALS = [
+    '作业时间明显拉长但效率下降（磨蹭超过 1 小时不动笔）',
+    '提到某科就烦躁、回避，或说"我就是学不会"',
+    '睡眠变差：入睡超 30 分钟、早醒',
+    '频繁肚子疼 / 头疼（查无器质性问题）',
+    '成绩下滑后拒绝沟通、摔门、暴食或不吃'
+  ];
+
+  /* ---------- 家长话术对照 ---------- */
+  const TALK_TIPS = [
+    { bad: '考了多少分？排名多少？', good: '今天学校有什么好玩的事？', why: '先给情绪出口，成绩孩子自己会提' },
+    { bad: '这么简单都能错？', good: '这道题当时是怎么想的？', why: '归因过程，不评价智力' },
+    { bad: '你看人家 ×××', good: '跟你上次比，这块进步了', why: '纵向比较建立掌控感' },
+    { bad: '快点去学习！', good: '今晚计划是哪几件事？需要我做什么？', why: '把管理权还给孩子' },
+    { bad: '这次考砸了没关系（过度安慰）', good: '难过很正常，明天我们一起看看卷子', why: '承认情绪 + 给出路径' }
+  ];
+
+  /* ---------- 五个真正有效的方法 ---------- */
+  const METHODS = [
+    { n: '1', name: '番茄钟 25+5', txt: '25 分钟纯专注 + 5 分钟休息为一个番茄。写作业每 2 个番茄歇 15 分钟。手机在番茄期间放另一个房间——意志力靠不住，物理隔离最可靠。' },
+    { n: '2', name: '主动回忆 > 反复看书', txt: '合上书说一遍今天学了什么，比把课本看 3 遍有效 3 倍。睡前 5 分钟"过电影"就是最小单位的主动回忆。' },
+    { n: '3', name: '费曼讲题', txt: '"能讲明白才算会"。每周家庭会上给孩子一个听众。讲卡壳的地方，就是漏洞所在地——精准定位，回去重学。' },
+    { n: '4', name: '限时训练', txt: '平时作业当考试：数学作业计时、写到"考试速度"。中考是速度战（数学 120 分钟），平时不限时，考场必手忙脚乱。' },
+    { n: '5', name: '间隔重复', txt: '单词、古诗、物理公式按 1-3-7-21 天节奏滚动复习（配合每日清单的 10 分钟重做）。集中突击记得快忘得更快。' }
+  ];
+
+  /* ---------- 效率优先级 ---------- */
+  const PRIORITY = [
+    { lv: '最高', t: '当日错题订正 + 重做旧错题', why: '漏洞当天补成本最低' },
+    { lv: '高', t: '弱科专项 20-25 分钟', why: '弱科涨 10 分比强科涨 3 分容易' },
+    { lv: '中', t: '作业（限时完成）', why: '作业本身是保底，不是提分项' },
+    { lv: '低', t: '预习明天内容（10 分钟）', why: '初中内容预习"翻目录"即可，不必细学' }
+  ];
+
+  /* ---------- 三年大事时间轴（2029 届） ---------- */
+  const TIMELINE = [
+    { date: '2026-09', grade: 1, ev: '初一开学', act: '建立"预习—听讲—错题"流程，习惯优先于分数' },
+    { date: '2026-11', grade: 1, ev: '初一上期中', act: '建立"分数—排名"基线，确定弱科' },
+    { date: '2027-01', grade: 1, ev: '初一上期末区统考', act: '第一次完整定位，选定四套方案中的一套' },
+    { date: '2027-09', grade: 2, ev: '物理开课', act: '前 8 周每天 10 分钟当日复习，防"听懂不会做"' },
+    { date: '2028-03', grade: 2, ev: '地生机考备考启动', act: '3 月起每周 1 次真题，目标至少保住 B/C' },
+    { date: '2028-06', grade: 2, ev: '生物 + 地理机考', act: '等级科目最多只允许一个 D 等，不能裸考' },
+    { date: '2028-09', grade: 3, ev: '化学开课 / 一轮复习开始', act: '化学所有人同一起跑线，是抢分的最佳窗口' },
+    { date: '2029-01', grade: 3, ev: '元月调考', act: '名校签约重要参考，成绩按目标校对标' },
+    { date: '2029-04', grade: 3, ev: '四月调考 + 实验操作考 + 体育现场测', act: '三线作战，寒假开始体育加练' },
+    { date: '2029-05', grade: 3, ev: '志愿填报（先出分后填志愿）', act: '按四调 + 元调定位，冲稳结合' },
+    { date: '2029-06', grade: 3, ev: '中考（6 月 20-22 日）', act: '两天半，心态即发挥' }
+  ];
+
+  /* ---------- 中考目标分 ---------- */
+  const TARGETS = [
+    { s: '语文', full: 120, goal: '108+' },
+    { s: '数学', full: 120, goal: '110+' },
+    { s: '英语', full: 120, goal: '112+' },
+    { s: '物理', full: 70, goal: '65+' },
+    { s: '化学', full: 50, goal: '46+' },
+    { s: '道法+历史', full: 120, goal: '108+' },
+    { s: '体育', full: 50, goal: '48+' },
+    { s: '实验操作', full: 30, goal: '30' }
+  ];
+
+  const SUBJECTS = ['语文', '数学', '英语', '物理', '化学', '道法', '历史', '地理', '生物'];
+
+  /* ---------- 每日一句（轮换） ---------- */
+  const QUOTES = [
+    '坚持下来的不是意志力，是习惯 + 一点点甜头。',
+    '把"打钩"变成仪式感——孩子完成的是自己的清单，不是妈妈的任务。',
+    '漏洞当天补，成本最低；拖到考前，代价最大。',
+    '看排名不看分数：难度年年不同，排名才是真实位置。',
+    '学习计划永远让位于心理健康——人垮了，计划再好都是零。',
+    '睡眠不足时记忆巩固率下降 40%，熬夜学习是负收益。',
+    '"听懂"和"会做"之间，隔着独立重做这一步。',
+    '休息不是学习的敌人，是冲刺的一部分。',
+    '每周只选 1 个漏洞主攻，贪多必败。',
+    '连续两次全对就可以销号——让孩子自己划掉那一刻最爽。'
+  ];
+
+  return {
+    PLANS, DAILY, WEEKLY_COMMON, WEEKLY_EXTRA, WRONG_TAGS, EBBINGHAUS,
+    STRESS_SIGNALS, TALK_TIPS, METHODS, PRIORITY, TIMELINE, TARGETS, SUBJECTS, QUOTES
+  };
+})();
+
+</script>
+<script charset="UTF-8">
+/* 激活码核心算法（浏览器端与代码生成器共用，务必保持一致）
+ * - 纯前端签名校验：激活码 = 12 位随机序列号 + 4 位校验和
+ * - 校验和由 keyedHash(序列号, SECRET) 派生，缺 SECRET 无法伪造
+ * 注意：SECRET 一旦用于生成激活码并分发，切勿再修改，否则旧码全部失效。
+ */
+(function (global, factory) {
+  if (typeof module === 'object' && module.exports) module.exports = factory();
+  else global.LicenseCore = factory();
+})(typeof self !== 'undefined' ? self : this, function () {
+  // 32 字符 Crockford Base32（排除易混的 I L O U；并把用户输入的 I/L->1 O->0 容错）
+  // 注意：表中绝不可再出现 I/L/O/U，否则 normalizeCode 会把合法码改写导致校验失败
+  var ALPHABET = '0123456789ABCDEFGHJKMNPQRSTVWXYZ';
+  var SECRET = 'WHZK-2029- FourFamousHigh-9f3c2a7e'; // 改前请先备好已发行激活码
+  var UNLOCK_YEARS = 3;  // 激活后解锁时长（年）
+
+  // FNV-1a 风格带密钥哈希，返回 32 位无符号整数
+  function keyedHash(str, key) {
+    var h = 0x811c9dc5 >>> 0;
+    for (var i = 0; i < str.length; i++) {
+      h ^= str.charCodeAt(i);
+      h = Math.imul(h, 0x01000193) >>> 0;
+    }
+    for (var j = 0; j < key.length; j++) {
+      h ^= key.charCodeAt(j);
+      h = Math.imul(h, 0x01000193) >>> 0;
+    }
+    return h >>> 0;
+  }
+
+  // 4 位校验和：对序列号 + 不同盐做 4 次哈希，各取 5 bit
+  function makeChecksum(serial) {
+    var out = '';
+    for (var i = 0; i < 4; i++) {
+      var h = keyedHash(serial + ':' + i, SECRET);
+      out += ALPHABET[h & 0x1F];
+    }
+    return out;
+  }
+
+  function formatCode(s) {
+    var up = (s || '').toUpperCase();
+    return up.slice(0, 4) + '-' + up.slice(4, 8) + '-' + up.slice(8, 12) + '-' + up.slice(12, 16);
+  }
+
+  // 归一化：去分隔符、转大写、I/L->1、O->0
+  function normalizeCode(s) {
+    return (s || '')
+      .toUpperCase()
+      .replace(/[-_\s]/g, '')
+      .replace(/I/g, '1')
+      .replace(/L/g, '1')
+      .replace(/O/g, '0');
+  }
+
+  function validateCode(s) {
+    var n = normalizeCode(s);
+    if (n.length !== 16) return false;
+    for (var i = 0; i < n.length; i++) if (ALPHABET.indexOf(n[i]) < 0) return false;
+    var serial = n.slice(0, 12);
+    var sum = n.slice(12);
+    return makeChecksum(serial) === sum;
+  }
+
+  // 生成一段合法激活码（serial 由调用方提供随机源）
+  function buildCode(serial12) {
+    var serial = (serial12 || '').toUpperCase();
+    return formatCode(serial + makeChecksum(serial));
+  }
+
+  return {
+    ALPHABET: ALPHABET,
+    SECRET: SECRET,
+    UNLOCK_YEARS: UNLOCK_YEARS,
+    keyedHash: keyedHash,
+    makeChecksum: makeChecksum,
+    formatCode: formatCode,
+    normalizeCode: normalizeCode,
+    validateCode: validateCode,
+    buildCode: buildCode
+  };
+});
+
+</script>
+<script charset="UTF-8">
+/* 本地存储层：所有数据存在 localStorage，无需联网即可读写 */
+window.Store = (function () {
+  const KEY = 'whzk_checkin_v1';
+
+  const DEFAULT = {
+    settings: { plan: 'balanced', startDate: '2026-09-01', name: '' },
+    days: {},      // { '2026-09-04': { '<hash>': true } }
+    weeks: {},     // { '2026-W36': { '<hash>': true } }
+    wrongs: [],    // 错题数组
+    moods: {},     // { '2026-09-04': { score, sleep, signals: [], note } }
+    license: null  // { deviceId, firstOpen, activated, code, activatedAt, expiry }
+  };
+
+  let db = load();
+
+  function load() {
+    try {
+      const raw = localStorage.getItem(KEY);
+      if (!raw) return JSON.parse(JSON.stringify(DEFAULT));
+      const obj = JSON.parse(raw);
+      return Object.assign(JSON.parse(JSON.stringify(DEFAULT)), obj);
+    } catch (e) {
+      return JSON.parse(JSON.stringify(DEFAULT));
+    }
+  }
+
+  let saveTimer = null;
+  function save() {
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(() => {
+      try { localStorage.setItem(KEY, JSON.stringify(db)); }
+      catch (e) { console.warn('保存失败', e); }
+    }, 60);
+  }
+
+  /* ---------- 工具 ---------- */
+  function hash(str) {
+    let h = 5381;
+    for (let i = 0; i < str.length; i++) h = ((h << 5) + h + str.charCodeAt(i)) >>> 0;
+    return 'h' + h.toString(36);
+  }
+
+  /* ---------- 设置 ---------- */
+  function getSettings() { return db.settings; }
+  function setSettings(patch) { Object.assign(db.settings, patch); save(); }
+
+  /* ---------- 每日打卡 ---------- */
+  function getDay(ymd) { return db.days[ymd] || {}; }
+  function setTask(ymd, text, val) {
+    if (!db.days[ymd]) db.days[ymd] = {};
+    const k = hash(text);
+    if (val) db.days[ymd][k] = true; else delete db.days[ymd][k];
+    if (!Object.keys(db.days[ymd]).length) delete db.days[ymd];
+    save();
+  }
+  function isDone(ymd, text) {
+    const d = db.days[ymd];
+    return !!(d && d[hash(text)]);
+  }
+
+  /* ---------- 每周清单 ---------- */
+  function getWeek(weekKey) { return db.weeks[weekKey] || {}; }
+  function setWeekTask(weekKey, text, val) {
+    if (!db.weeks[weekKey]) db.weeks[weekKey] = {};
+    const k = hash(text);
+    if (val) db.weeks[weekKey][k] = true; else delete db.weeks[weekKey][k];
+    if (!Object.keys(db.weeks[weekKey]).length) delete db.weeks[weekKey];
+    save();
+  }
+  function isWeekDone(weekKey, text) {
+    const d = db.weeks[weekKey];
+    return !!(d && d[hash(text)]);
+  }
+
+  /* ---------- 错题本 ---------- */
+  function wrongs() { return db.wrongs; }
+  function addWrong(w) {
+    w.id = 'w' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+    w.reviews = {};      // { '1': true, '3': false ... }
+    w.archived = false;
+    db.wrongs.push(w);
+    save();
+    return w;
+  }
+  function updateWrong(id, patch) {
+    const w = db.wrongs.find(x => x.id === id);
+    if (w) { Object.assign(w, patch); save(); }
+    return w;
+  }
+  function delWrong(id) {
+    db.wrongs = db.wrongs.filter(x => x.id !== id);
+    save();
+  }
+
+  /* ---------- 情绪 ---------- */
+  function getMood(ymd) { return db.moods[ymd] || null; }
+  function setMood(ymd, obj) {
+    db.moods[ymd] = Object.assign(db.moods[ymd] || {}, obj);
+    save();
+  }
+
+  /* ============ 激活 / 授权 ============ */
+  /* 无试用期：未激活即锁定，必须输入激活码才可使用（解锁 3 年） */
+  const UNLOCK_YEARS = window.LicenseCore ? window.LicenseCore.UNLOCK_YEARS : 3;
+
+  function pad2(n) { return n < 10 ? '0' + n : '' + n; }
+  function ymdStr(d) { return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate()); }
+  function addDays2(d, n) { const x = new Date(d.getTime()); x.setDate(x.getDate() + n); return x; }
+  function parseYmd2(s) { const p = s.split('-').map(Number); return new Date(p[0], p[1] - 1, p[2]); }
+  function midnight(d) { const x = new Date(d.getTime()); x.setHours(0, 0, 0, 0); return x; }
+
+  function genDeviceId() {
+    try { if (window.crypto && crypto.randomUUID) return crypto.randomUUID(); } catch (e) {}
+    return 'd' + Date.now().toString(36) + Math.random().toString(36).slice(2, 12);
+  }
+
+  // 首次打开时初始化：仅记录设备指纹。未激活不给任何可用期限，必须激活。
+  function ensureLicense() {
+    if (db.license && db.license.deviceId) return db.license;
+    db.license = {
+      deviceId: genDeviceId(),
+      firstOpen: ymdStr(new Date()),
+      activated: false,
+      code: '',
+      activatedAt: '',
+      expiry: ''
+    };
+    save();
+    return db.license;
+  }
+
+  function licenseStatus() {
+    const lic = ensureLicense();
+    // 只有「已激活且未到期」才可用；未激活或已过期一律锁定，需要激活码
+    if (lic.activated && lic.expiry) {
+      const now = midnight(new Date());
+      const exp = midnight(parseYmd2(lic.expiry));
+      if (now <= exp) return { state: 'active', daysLeft: Math.round((exp - now) / 86400000), expiry: lic.expiry };
+      return { state: 'locked', daysLeft: 0, expiry: lic.expiry, expired: true };
+    }
+    return { state: 'locked', daysLeft: 0, expiry: '', needActivate: true };
+  }
+
+  function activate(raw) {
+    const lic = ensureLicense();
+    if (!window.LicenseCore || !window.LicenseCore.validateCode(raw))
+      return { ok: false, reason: '激活码格式不对或无效，请检查后重试' };
+    const code = window.LicenseCore.normalizeCode(raw);
+    if (lic.activated) {
+      if (lic.code === code) return { ok: true, already: true };
+      return { ok: false, reason: '本设备已激活，一个激活码只能绑定一台设备' };
+    }
+    lic.activated = true;
+    lic.code = code;
+    lic.activatedAt = new Date().toISOString();
+    lic.expiry = ymdStr(addDays2(new Date(), Math.round(UNLOCK_YEARS * 365)));
+    save();
+    return { ok: true };
+  }
+
+  /* ---------- 导入导出 ---------- */
+  function exportJSON() {
+    // 激活状态不随备份导出，避免激活码被迁移到其它设备
+    const copy = JSON.parse(JSON.stringify(db));
+    delete copy.license;
+    return JSON.stringify({ app: 'whzk-checkin', version: 1, exportedAt: new Date().toISOString(), data: copy }, null, 2);
+  }
+  function importJSON(txt) {
+    const obj = JSON.parse(txt);
+    const d = obj.data || obj;
+    if (!d || typeof d !== 'object') throw new Error('文件格式不对');
+    const keepLic = db.license;              // 保留本机激活状态
+    db = Object.assign(JSON.parse(JSON.stringify(DEFAULT)), d);
+    db.license = keepLic;
+    save();
+  }
+  function reset() {
+    db = JSON.parse(JSON.stringify(DEFAULT));
+    save();
+  }
+
+  return {
+    hash, getSettings, setSettings,
+    getDay, setTask, isDone,
+    getWeek, setWeekTask, isWeekDone,
+    wrongs, addWrong, updateWrong, delWrong,
+    getMood, setMood,
+    ensureLicense, licenseStatus, activate,
+    isUnlocked: function () { return licenseStatus().state !== 'locked'; },
+    getLicense: function () { return ensureLicense(); },
+    exportJSON, importJSON, reset,
+    get raw() { return db; }
+  };
+})();
+
+</script>
+<script charset="UTF-8">
+/* 武汉中考三年打卡 · 主逻辑 */
+(function () {
+  /* 启动守卫：核心依赖未加载（多为旧缓存/网络抖动导致 JS 缺失）时，
+     显示"刷新重试"提示而非静默空白，避免再次出现"蓝块+空白+TAB 死" */
+  if (!window.Store || !window.DATA) {
+    var _v = document.getElementById('view');
+    if (_v) _v.innerHTML = '<section class="card lock-card"><div class="lock-ico">⚠️</div><h2>页面资源未加载完整</h2><p class="lock-sub">通常是旧缓存或网络抖动。请下拉刷新，或在浏览器重新打开本链接即可恢复。</p><button class="btn primary block" onclick="location.reload()">刷新重试</button></section>';
+    return;
+  }
+
+  const $ = (s, r) => (r || document).querySelector(s);
+  const $$ = (s, r) => Array.prototype.slice.call((r || document).querySelectorAll(s));
+  const D = window.DATA;
+  const view = $('#view');
+
+  /* ============ 应急自救：链接后加 ?reset 清除 Service Worker 与缓存 ============ */
+  /* 个别手机（尤其 iOS 加到主屏的 PWA）若因旧 SW 缓存壳白屏/打不开，
+     让用户打开「原链接?reset」即可强制刷新到最新版。 */
+  if (/[?&]reset/.test(location.search) && 'serviceWorker' in navigator) {
+    Promise.all([
+      caches.keys().then(ks => Promise.all(ks.map(k => caches.delete(k)))).catch(function () {}),
+      navigator.serviceWorker.getRegistrations().then(function (rs) {
+        return Promise.all(rs.map(function (r) { return r.unregister(); }));
+      }).catch(function () {})
+    ]).then(function () {
+      var q = location.search.replace(/[?&]reset/g, '').replace(/^&/, '?');
+      location.replace('./' + q);
+    }).catch(function () { location.replace('./'); });
+  }
+
+  /* ============ 工具 ============ */
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  }
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+  function ymd(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+  function parseYmd(s) { const p = s.split('-').map(Number); return new Date(p[0], p[1] - 1, p[2]); }
+  function addDays(d, n) { const x = new Date(d.getTime()); x.setDate(x.getDate() + n); return x; }
+  const WD = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+
+  function mondayOf(d) {
+    const x = new Date(d.getTime());
+    const w = (x.getDay() + 6) % 7;
+    x.setDate(x.getDate() - w);
+    x.setHours(0, 0, 0, 0);
+    return x;
+  }
+  function weekKey(d) {
+    const m = mondayOf(d);
+    const th = addDays(m, 3);
+    const y = th.getFullYear();
+    const firstThu = mondayOf(new Date(y, 0, 4));
+    const wk = 1 + Math.round((mondayOf(th) - firstThu) / (7 * 86400000));
+    return y + '-W' + pad(wk);
+  }
+  function gradeOf(date, startStr) {
+    const s = parseYmd(startStr);
+    const y = date.getFullYear(), m = date.getMonth() + 1;
+    let g = (y - s.getFullYear()) + (m >= 9 ? 1 : 0);
+    return Math.min(3, Math.max(1, g));
+  }
+  function termOf(date) { const m = date.getMonth() + 1; return (m >= 9 || m <= 1) ? '上学期' : '下学期'; }
+  const GRADE_CN = { 1: '初一', 2: '初二', 3: '初三' };
+
+  function daysBetween(a, b) {
+    const A = new Date(a.getFullYear(), a.getMonth(), a.getDate());
+    const B = new Date(b.getFullYear(), b.getMonth(), b.getDate());
+    return Math.round((B - A) / 86400000);
+  }
+
+  /* ============ 状态 ============ */
+  const state = {
+    tab: 'today',
+    date: ymd(new Date()),
+    week: mondayOf(new Date()),
+    timer: null
+  };
+  const S = () => Store.getSettings();
+
+  function todayItems(dateStr) {
+    const d = parseYmd(dateStr);
+    const g = gradeOf(d, S().startDate);
+    const plan = D.DAILY[S().plan][g];
+    const m = d.getMonth() + 1;
+    const items = plan.items.filter(it => !it.months || it.months.indexOf(m) >= 0);
+    return { grade: g, plan, items };
+  }
+
+  /* ============ 顶部横幅 ============ */
+  function renderBanner() {
+    const d = parseYmd(state.date);
+    const g = gradeOf(d, S().startDate);
+    $('#stageLine').textContent = GRADE_CN[g] + ' · ' + termOf(d);
+
+    // 倒计时
+    const zk = new Date(2029, 5, 20);
+    const now = new Date();
+    const left = daysBetween(now, zk);
+    $('#cdDays').textContent = left > 0 ? left : (left === 0 ? '0' : '--');
+
+    // 今日完成率
+    const { items } = todayItems(ymd(new Date()));
+    const doneToday = items.filter(it => Store.isDone(ymd(new Date()), it.t)).length;
+    const rate = items.length ? Math.round(doneToday / items.length * 100) : 0;
+    $('#todayRate').textContent = rate + '%';
+
+    // 连续打卡
+    $('#streakDays').textContent = computeStats().streak;
+  }
+
+  /* ============ 宫格快速入口 ============ */
+  function renderGrid() {
+    const today = ymd(new Date());
+    const { items } = todayItems(today);
+    const done = items.filter(it => Store.isDone(today, it.t)).length;
+    const allN = Store.wrongs().filter(w => !w.archived).length;
+    const dueN = (function(){
+      const t = new Date(); t.setHours(0,0,0,0);
+      return Store.wrongs().filter(w => {
+        if (w.archived) return false;
+        const d0 = parseYmd(w.date); d0.setHours(0,0,0,0);
+        return D.EBBINGHAUS.some(step => { const dd = addDays(d0, step); return dd <= t && !w.reviews[step]; });
+      }).length;
+    })();
+    const mood = Store.getMood(today);
+    const moodTxt = mood && mood.score ? ['', '很低落', '有点烦', '还行', '不错', '很棒'][mood.score] : '未记录';
+    const st = computeStats();
+
+    const cells = [
+      { k: 'today', img: '3d-today.png', t: '今日打卡', s: `${done}/${items.length} 完成` },
+      { k: 'week', img: '3d-week.png', t: '本周计划', s: '查看周清单' },
+      { k: 'wrong', img: '3d-wrong.png', t: '错题本', s: `${dueN} 道待重做` },
+      { k: 'mood', img: '3d-mood.png', t: '情绪记录', s: moodTxt },
+      { k: 'me', img: '3d-me.png', t: '我的统计', s: `${st.totalDays} 天打卡` },
+      { k: 'pdf', img: '3d-pdf.png', t: '打印/导出', s: '周清单 PDF' }
+    ];
+
+    return `<div class="home-grid">
+      ${cells.map(c => `<div class="home-item" data-act="home" data-v="${c.k}">
+        <img class="home-3d" src="icons/3d/${c.img}" alt="${esc(c.t)}">
+        <div class="home-t">${esc(c.t)}</div>
+        <div class="home-s">${esc(c.s)}</div>
+      </div>`).join('')}
+    </div>`;
+  }
+
+  /* ============ 视图：今日 ============ */
+  function viewToday() {
+    const d = parseYmd(state.date);
+    const { grade, plan, items } = todayItems(state.date);
+    const done = items.filter(it => Store.isDone(state.date, it.t)).length;
+    const pct = items.length ? Math.round(done / items.length * 100) : 0;
+    const isToday = state.date === ymd(new Date());
+    const mood = Store.getMood(state.date);
+
+    const C = 2 * Math.PI * 26;
+    const offset = C * (1 - pct / 100);
+
+    const planBtns = Object.keys(D.PLANS).map(k =>
+      `<button class="chip ${k === S().plan ? 'on' : ''}" data-act="plan" data-v="${k}">${esc(D.PLANS[k].name)}</button>`
+    ).join('');
+
+    const list = items.map((it, i) => {
+      const ok = Store.isDone(state.date, it.t);
+      return `<label class="task ${ok ? 'done' : ''}" data-act="toggle-day" data-v="${esc(it.t)}">
+        <span class="box">${ok ? '✓' : ''}</span>
+        <span class="task-main">
+          <span class="task-t">${esc(it.t)}</span>
+          <span class="task-tip">${esc(it.tip)}</span>
+        </span>
+        <span class="task-min">${it.inSchool ? '校内' : (it.min ? it.min + '′' : '')}</span>
+      </label>`;
+    }).join('');
+
+    return `
+      ${renderGrid()}
+
+      <section class="card datecard">
+        <div class="date-nav">
+          <button class="nav-btn" data-act="day" data-v="-1">‹</button>
+          <div class="date-mid">
+            <div class="date-big">${d.getMonth() + 1}月${d.getDate()}日 <span class="wd">${WD[d.getDay()]}</span></div>
+            <div class="date-sub">${GRADE_CN[grade]} · ${termOf(d)}${isToday ? ' · 今天' : ''}</div>
+          </div>
+          <button class="nav-btn" data-act="day" data-v="1" ${isToday ? 'disabled' : ''}>›</button>
+        </div>
+        <div class="ring-wrap">
+          <svg class="ring" viewBox="0 0 64 64">
+            <circle cx="32" cy="32" r="26" class="ring-bg"></circle>
+            <circle cx="32" cy="32" r="26" class="ring-fg" stroke-dasharray="${C}" stroke-dashoffset="${offset}"></circle>
+          </svg>
+          <div class="ring-side">
+            <div class="ring-title">今日进度 ${pct}%</div>
+            <div class="ring-note">${done === items.length && items.length ? '全部完成，今天很棒 🎉' : (done ? '还差 ' + (items.length - done) + ' 项' : '开始第一项吧')}</div>
+            <div class="ring-note">计划时长约 ${plan.minutes} 分钟</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-h">
+          <h2>选择方案</h2>
+          <span class="hint">按诊断结果选定，不必频繁更换</span>
+        </div>
+        <div class="chips">${planBtns}</div>
+        <p class="slogan">${esc(plan.slogan)}</p>
+      </section>
+
+      <section class="card">
+        <div class="card-h">
+          <h2>今日任务清单</h2>
+          <span class="hint">点一下就打钩，自动保存</span>
+        </div>
+        <div class="tasks">${list}</div>
+      </section>
+
+      <section class="card">
+        <div class="card-h"><h2>番茄钟 25 + 5</h2><span class="hint">专注时把手机放另一个房间</span></div>
+        <div class="pomodoro">
+          <div class="pomo-time" id="pomoTime">25:00</div>
+          <div class="pomo-btns">
+            <button class="btn primary" data-act="pomo" data-v="start">开始专注</button>
+            <button class="btn" data-act="pomo" data-v="rest">休息 5 分钟</button>
+            <button class="btn ghost" data-act="pomo" data-v="stop">重置</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="card quote">
+        <span class="q-mark">“</span>
+        <p>${esc(D.QUOTES[(new Date(state.date).getDate() + d.getMonth()) % D.QUOTES.length])}</p>
+      </section>
+
+      ${mood ? `<section class="card soft"><div class="card-h"><h2>今日心情</h2></div>
+        <div class="mood-sum">${['', '😢', '😕', '😐', '😊', '😀'][mood.score] || ''} ${esc({1:'很低落',2:'有点烦',3:'还行',4:'不错',5:'很棒'}[mood.score] || '')}${mood.sleep ? ' · 睡眠 ' + mood.sleep + ' 小时' : ''}</div></section>` : ''}
+    `;
+  }
+
+  /* ============ 视图：本周 ============ */
+  function viewWeek() {
+    const mon = state.week;
+    const sun = addDays(mon, 6);
+    const wk = weekKey(mon);
+    const g = gradeOf(mon, S().startDate);
+    const planKey = S().plan;
+
+    const commons = D.WEEKLY_COMMON.map(it => {
+      const ok = Store.isWeekDone(wk, it.t);
+      return `<label class="task ${ok ? 'done' : ''}" data-act="toggle-week" data-v="${esc(it.t)}">
+        <span class="box">${ok ? '✓' : ''}</span>
+        <span class="task-main"><span class="task-t">${esc(it.t)}</span><span class="task-tip">${esc(it.tip)}</span></span>
+      </label>`;
+    }).join('');
+
+    const extras = D.WEEKLY_EXTRA[planKey].map(it => {
+      const ok = Store.isWeekDone(wk, it.t);
+      return `<label class="task ${ok ? 'done' : ''}" data-act="toggle-week" data-v="${esc(it.t)}">
+        <span class="box">${ok ? '✓' : ''}</span>
+        <span class="task-main"><span class="task-t">${esc(it.t)}</span><span class="task-tip">${esc(it.tip)}</span></span>
+      </label>`;
+    }).join('');
+
+    const total = D.WEEKLY_COMMON.length + D.WEEKLY_EXTRA[planKey].length;
+    const doneN = D.WEEKLY_COMMON.filter(i => Store.isWeekDone(wk, i.t)).length
+                + D.WEEKLY_EXTRA[planKey].filter(i => Store.isWeekDone(wk, i.t)).length;
+
+    let weekDays = '';
+    for (let i = 0; i < 7; i++) {
+      const day = addDays(mon, i);
+      const ds = ymd(day);
+      const { items } = todayItems(ds);
+      const dn = items.filter(it => Store.isDone(ds, it.t)).length;
+      const full = items.length && dn === items.length;
+      const half = dn > 0 && !full;
+      const isCur = ds === state.date;
+      const future = day > new Date();
+      weekDays += `<div class="wd-cell ${full ? 'f' : (half ? 'h' : '')} ${isCur ? 'cur' : ''} ${future ? 'fut' : ''}" data-act="goto-day" data-v="${ds}">
+        <span class="wd-n">${WD[day.getDay()].slice(1)}</span>
+        <span class="wd-d">${day.getDate()}</span>
+        <span class="wd-p">${items.length ? dn + '/' + items.length : '·'}</span>
+      </div>`;
+    }
+
+    const prevW = addDays(mon, -7), nextW = addDays(mon, 7);
+    const canNext = weekKey(nextW) <= weekKey(new Date());
+
+    return `
+      <section class="card datecard">
+        <div class="date-nav">
+          <button class="nav-btn" data-act="week" data-v="-7">‹</button>
+          <div class="date-mid">
+            <div class="date-big">${mon.getMonth() + 1}月${mon.getDate()}日 — ${sun.getMonth() + 1}月${sun.getDate()}日</div>
+            <div class="date-sub">${GRADE_CN[g]} · 第 ${wk.split('-W')[1]} 周 · 完成 ${doneN}/${total}</div>
+          </div>
+          <button class="nav-btn" data-act="week" data-v="7" ${canNext ? '' : 'disabled'}>›</button>
+        </div>
+        <div class="week-grid">${weekDays}</div>
+        <div class="week-legend"><span class="lg f"></span>全完成 <span class="lg h"></span>部分完成 <span class="lg"></span>未打卡</div>
+      </section>
+
+      <section class="card">
+        <div class="card-h"><h2>每周清单 · 通用 8 项</h2><span class="hint">${doneN}/${total} 已完成</span></div>
+        <div class="tasks">${commons}</div>
+      </section>
+
+      <section class="card">
+        <div class="card-h"><h2>本周加餐 · ${esc(D.PLANS[planKey].name)}</h2></div>
+        <div class="tasks">${extras}</div>
+        <p class="slogan">${esc(D.PLANS[planKey].caution)}</p>
+      </section>
+
+      <section class="card soft">
+        <div class="card-h"><h2>本周提醒</h2></div>
+        <ul class="mini-list">
+          <li>周日家庭会 20 分钟：孩子讲一道本周最有意思的题，讲卡壳的地方就是漏洞。</li>
+          <li>错题"销号"仪式：连续两次全对的题，让孩子自己划掉。</li>
+          <li>每周清单完成 80% 以上，周末奖励一次家庭外出。</li>
+        </ul>
+      </section>
+    `;
+  }
+
+  /* ============ 视图：错题本 ============ */
+  function viewWrong() {
+    const all = Store.wrongs().filter(w => !w.archived);
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+
+    const due = all.filter(w => {
+      const d0 = parseYmd(w.date); d0.setHours(0, 0, 0, 0);
+      return D.EBBINGHAUS.some(step => {
+        const dd = addDays(d0, step);
+        return dd <= today && !w.reviews[step];
+      });
+    });
+
+    function card(w) {
+      const d0 = parseYmd(w.date);
+      const steps = D.EBBINGHAUS.map(s => {
+        const dd = addDays(d0, s);
+        const ok = w.reviews[s];
+        const isDue = dd <= today && !ok;
+        return `<span class="step ${ok ? 'ok' : (isDue ? 'due' : '')}" data-act="review" data-v="${w.id}|${s}" title="${ymd(dd)}">${s}天${ok ? '✓' : ''}</span>`;
+      }).join('');
+      const tag = D.WRONG_TAGS.find(t => t.key === w.tag) || {};
+      return `<div class="wrong-item">
+        <div class="wi-head">
+          <span class="wi-sub">${esc(w.subject)}</span>
+          <span class="wi-tag t-${w.tag}">${esc(tag.name || '')}</span>
+          <button class="wi-del" data-act="del-wrong" data-v="${w.id}" title="删除">✕</button>
+        </div>
+        <div class="wi-text">${esc(w.text)}</div>
+        <div class="wi-steps"><span class="wi-label">重做节奏</span>${steps}</div>
+        <div class="wi-advice">${esc(tag.advice || '')}</div>
+      </div>`;
+    }
+
+    const tagCount = {};
+    all.forEach(w => { tagCount[w.tag] = (tagCount[w.tag] || 0) + 1; });
+    const totalTagged = all.length;
+    const stat = D.WRONG_TAGS.map(t => {
+      const c = tagCount[t.key] || 0;
+      const p = totalTagged ? Math.round(c / totalTagged * 100) : 0;
+      const warn = t.key === 'calc' && p > 30;
+      return `<div class="stat-row">
+        <span class="stat-name">${esc(t.name)}</span>
+        <span class="stat-bar"><i style="width:${p}%"></i></span>
+        <span class="stat-num">${c} 题 ${p}%</span>
+      </div>${warn ? '<div class="warn">⚠ 计算失误占比超 30%，建议每天加 5 分钟限时计算</div>' : ''}`;
+    }).join('');
+
+    return `
+      <section class="card">
+        <div class="card-h"><h2>记一道错题</h2><span class="hint">当天错题当天进本，不过夜</span></div>
+        <div class="form">
+          <select id="wSubject">${D.SUBJECTS.map(s => `<option>${s}</option>`).join('')}</select>
+          <input id="wText" type="text" placeholder="题目摘要（如：一次函数应用题·利润最值）" maxlength="60">
+          <div class="chips">
+            ${D.WRONG_TAGS.map(t => `<button class="chip tagchip ${t.key === 'concept' ? 'on' : ''}" data-act="wtag" data-v="${t.key}">${esc(t.name)}</button>`).join('')}
+          </div>
+          <button class="btn primary block" data-act="add-wrong">加入错题本</button>
+        </div>
+        <p class="slogan">归因比订正重要：先选对标签，再想怎么改。</p>
+      </section>
+
+      <section class="card">
+        <div class="card-h"><h2>今天该重做 <span class="pill">${due.length}</span></h2><span class="hint">1-3-7-21 天节奏</span></div>
+        ${due.length ? `<div class="wrong-list">${due.map(card).join('')}</div>`
+          : '<p class="empty">今天没有到期的错题 ✅ 可以去复习别的，或者早点睡。</p>'}
+      </section>
+
+      <section class="card">
+        <div class="card-h"><h2>全部错题 <span class="pill">${all.length}</span></h2></div>
+        ${all.length ? `<div class="wrong-list">${all.slice().reverse().map(card).join('')}</div>`
+          : '<p class="empty">还没有错题记录。</p>'}
+      </section>
+
+      <section class="card soft">
+        <div class="card-h"><h2>错因统计</h2><span class="hint">看看漏洞在哪儿</span></div>
+        ${totalTagged ? stat : '<p class="empty">暂无数据</p>'}
+      </section>
+    `;
+  }
+
+  /* ============ 视图：情绪 ============ */
+  const MOODS = [
+    { v: 1, e: '😢', n: '很低落' },
+    { v: 2, e: '😕', n: '有点烦' },
+    { v: 3, e: '😐', n: '还行' },
+    { v: 4, e: '😊', n: '不错' },
+    { v: 5, e: '😀', n: '很棒' }
+  ];
+
+  function viewMood() {
+    const m = Store.getMood(state.date) || { score: 0, sleep: '', signals: [], note: '' };
+    const d = parseYmd(state.date);
+
+    const moodRow = MOODS.map(x =>
+      `<button class="mood ${m.score === x.v ? 'on' : ''}" data-act="mood" data-v="${x.v}">
+        <span class="mood-e">${x.e}</span><span class="mood-n">${x.n}</span>
+      </button>`).join('');
+
+    const sigs = D.STRESS_SIGNALS.map((s, i) => {
+      const on = (m.signals || []).indexOf(i) >= 0;
+      return `<label class="task small ${on ? 'done warn-task' : ''}" data-act="toggle-sig" data-v="${i}">
+        <span class="box">${on ? '✓' : ''}</span>
+        <span class="task-main"><span class="task-t">${esc(s)}</span></span>
+      </label>`;
+    }).join('');
+
+    const risk = (m.signals || []).length >= 2;
+
+    return `
+      <section class="card">
+        <div class="card-h"><h2>今天心情怎么样</h2><span class="hint">${d.getMonth() + 1}月${d.getDate()}日 ${WD[d.getDay()]}</span></div>
+        <div class="mood-row">${moodRow}</div>
+        <div class="form inline">
+          <label class="sleep-l">今晚睡了</label>
+          <input id="mSleep" type="number" step="0.5" min="0" max="14" value="${esc(m.sleep)}" placeholder="8.5">
+          <span class="sleep-u">小时</span>
+        </div>
+        <p class="slogan">初中生建议 22:00 前后入睡、6:40 后起床，9 小时是底线。睡眠不足时记忆巩固率下降 40%。</p>
+      </section>
+
+      <section class="card ${risk ? 'danger' : ''}">
+        <div class="card-h"><h2>压力超载信号</h2><span class="hint">出现 2 条以上要干预</span></div>
+        <div class="tasks">${sigs}</div>
+        ${risk ? '<div class="warn big">⚠ 已勾选 ' + m.signals.length + ' 条：先降任务量 30%，加运动和睡眠，观察 1—2 周。<br>学习计划永远让位于心理健康——人垮了，计划再好都是零。</div>' : ''}
+      </section>
+
+      <section class="card">
+        <div class="card-h"><h2>想说点什么</h2><span class="hint">只存在这台设备上</span></div>
+        <textarea id="mNote" rows="3" maxlength="200" placeholder="今天卡在哪儿了？明天想先做哪件事？">${esc(m.note || '')}</textarea>
+        <button class="btn primary block" data-act="save-note">保存</button>
+      </section>
+
+      <section class="card soft">
+        <div class="card-h"><h2>家长话术对照表</h2></div>
+        <div class="talk">
+          ${D.TALK_TIPS.map(t => `<div class="talk-row">
+            <div class="talk-bad">✕ ${esc(t.bad)}</div>
+            <div class="talk-good">✓ ${esc(t.good)}</div>
+            <div class="talk-why">${esc(t.why)}</div>
+          </div>`).join('')}
+        </div>
+      </section>
+
+      <section class="card soft">
+        <div class="card-h"><h2>五个真正有效的方法</h2></div>
+        ${D.METHODS.map(m2 => `<div class="method">
+          <span class="m-num">${m2.n}</span>
+          <div><b>${esc(m2.name)}</b><p>${esc(m2.txt)}</p></div>
+        </div>`).join('')}
+      </section>
+    `;
+  }
+
+  /* ============ 激活弹窗（未激活时，任何改动操作都会触发）============ */
+  function showLicModal() {
+    const m = $('#licModal');
+    if (!m) return;
+    m.hidden = false;
+    const inp = $('#actCodeModal');
+    if (inp) { inp.value = ''; setTimeout(() => inp.focus(), 50); }
+  }
+  function hideLicModal() {
+    const m = $('#licModal');
+    if (m) m.hidden = true;
+  }
+  function modalActivate() {
+    const m = $('#licModal');
+    const inp = $('#actCodeModal');
+    const v = (inp && inp.value || '').trim();
+    if (!v) { toast('请先输入激活码'); if (inp) inp.focus(); return; }
+    const r = Store.activate(v);
+    if (r.ok) {
+      hideLicModal();
+      render();
+      toast(r.already ? '本设备已处于激活状态' : '激活成功，已解锁 3 年 🎉');
+      if (navigator.vibrate) navigator.vibrate(60);
+    } else {
+      toast(r.reason);
+    }
+  }
+
+  /* ============ 授权状态卡（「我的」页顶部）============ */
+  function licCard() {
+    const lic = Store.licenseStatus();
+    const L = Store.getLicense();
+    let statusLine, body;
+    if (lic.state === 'active') {
+      const tail = L.code ? ' · 尾号 ' + esc(L.code.slice(-4)) : '';
+      statusLine = `<span class="lic-badge ok">已激活</span> 可用至 <b>${esc(lic.expiry)}</b>${tail}`;
+      body = `<p class="lock-tip">本设备已绑定激活码，无需重复激活。换手机请用「导出备份」迁移打卡数据（激活状态不随备份迁移）。</p>`;
+    } else {
+      statusLine = `<span class="lic-badge locked">未激活</span> 需要激活码解锁 <b>3 年</b>`;
+      body = `<p class="lock-tip">激活后可完整使用 <b>3 年</b>，一路用到中考，断网也能照常打卡。</p>
+      <div class="form">
+        <input id="actCode" type="text" autocapitalize="characters" maxlength="20" placeholder="输入激活码 · 解锁 3 年">
+        <button class="btn primary block" data-act="activate">激活并解锁</button>
+      </div>`;
+    }
+    return `<section class="card lic-card">
+      <div class="card-h"><h2>激活 · 解锁完整 3 年</h2></div>
+      <div class="lic-status">${statusLine}</div>
+      ${body}
+    </section>`;
+  }
+
+  /* ============ 视图：我的 ============ */
+  function viewMe() {
+    const st = computeStats();
+    const s = S();
+
+    const end = mondayOf(new Date());
+    const start = addDays(end, -15 * 7);
+    let heat = '';
+    for (let w = 0; w < 16; w++) {
+      let col = '';
+      for (let i = 0; i < 7; i++) {
+        const day = addDays(start, w * 7 + i);
+        const ds = ymd(day);
+        const fut = day > new Date();
+        let lv = 0;
+        if (!fut) {
+          const { items } = todayItems(ds);
+          const dn = items.filter(it => Store.isDone(ds, it.t)).length;
+          lv = items.length ? (dn === 0 ? 0 : (dn === items.length ? 4 : (dn / items.length >= .6 ? 3 : (dn / items.length >= .3 ? 2 : 1)))) : 0;
+        }
+        col += `<i class="hd lv${lv}${fut ? ' fut' : ''}" title="${ds}"></i>`;
+      }
+      heat += `<div class="heat-col">${col}</div>`;
+    }
+
+    const tl = D.TIMELINE.map(t => {
+      const passed = new Date(t.date + '-01') < new Date();
+      return `<div class="tl-row ${passed ? 'passed' : ''}">
+        <span class="tl-dot"></span>
+        <span class="tl-date">${t.date.replace('-', ' 年 ')}月</span>
+        <span class="tl-ev">${esc(t.ev)}</span>
+        <span class="tl-act">${esc(t.act)}</span>
+      </div>`;
+    }).join('');
+
+    const tg = D.TARGETS.map(t =>
+      `<div class="tg-row"><span class="tg-s">${esc(t.s)}</span><span class="tg-f">${t.full}</span><span class="tg-g">${esc(t.goal)}</span></div>`
+    ).join('');
+
+    const pr = D.PRIORITY.map(p =>
+      `<div class="pr-row lv-${p.lv}"><span class="pr-lv">${p.lv}</span><span class="pr-t">${esc(p.t)}</span><span class="pr-w">${esc(p.why)}</span></div>`
+    ).join('');
+
+    return `
+      ${licCard()}
+
+      <section class="card">
+        <div class="card-h"><h2>打卡统计</h2></div>
+        <div class="stat-grid">
+          <div class="stat-box"><b>${st.streak}</b><span>连续打卡</span></div>
+          <div class="stat-box"><b>${st.totalDays}</b><span>累计天数</span></div>
+          <div class="stat-box"><b>${st.fullDays}</b><span>全完成天</span></div>
+          <div class="stat-box"><b>${st.doneTasks}</b><span>完成任务</span></div>
+        </div>
+        <div class="heat-wrap"><div class="heat">${heat}</div></div>
+        <div class="week-legend"><span class="lg lv1"></span><span class="lg lv2"></span><span class="lg lv3"></span><span class="lg lv4"></span> 近 16 周完成度</div>
+      </section>
+
+      <section class="card">
+        <div class="card-h"><h2>基本设置</h2></div>
+        <div class="form">
+          <label class="fl">学生昵称</label>
+          <input id="setName" type="text" maxlength="20" value="${esc(s.name)}" placeholder="可留空">
+          <label class="fl">入学日期（初一开学）</label>
+          <input id="setStart" type="date" value="${esc(s.startDate)}">
+          <label class="fl">学习方案</label>
+          <select id="setPlan">${Object.keys(D.PLANS).map(k => `<option value="${k}" ${k === s.plan ? 'selected' : ''}>${esc(D.PLANS[k].name)}</option>`).join('')}</select>
+          <button class="btn primary block" data-act="save-settings">保存设置</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-h"><h2>数据管理</h2><span class="hint">数据只存在这台设备</span></div>
+        <div class="btn-row">
+          <button class="btn" data-act="export">导出备份</button>
+          <button class="btn" data-act="import">导入备份</button>
+          <button class="btn ghost" data-act="print">打印本周清单</button>
+        </div>
+        <button class="btn danger-ghost block" data-act="reset">清空全部数据</button>
+      </section>
+
+      <section class="card soft">
+        <div class="card-h"><h2>630 分目标拆解</h2><span class="hint">满分 680</span></div>
+        <div class="tg">${tg}</div>
+      </section>
+
+      <section class="card soft">
+        <div class="card-h"><h2>1.5 小时怎么花最值</h2></div>
+        <div class="pr">${pr}</div>
+      </section>
+
+      <section class="card soft">
+        <div class="card-h"><h2>三年大事时间轴</h2><span class="hint">2029 届</span></div>
+        <div class="tl">${tl}</div>
+      </section>
+
+      <section class="card soft about">
+        <p><b>关于离线</b>：首次联网打开后，本页会被完整缓存到手机里，之后<b>断网、坐地铁、飞行模式都能照常打卡</b>。数据保存在本机浏览器，换手机请用"导出备份"迁移。</p>
+        <p><b>关于分享</b>：把这个链接发给朋友即可，双方数据各自独立、互不可见。</p>
+        <p class="disc">本规划基于 2026 年武汉中考政策与录取数据整理，供 2029 届参考；政策细节以武汉市教育局当年发布为准。</p>
+        <p class="wm">小红书 · AI学习资料库</p>
+      </section>
+    `;
+  }
+
+  /* ============ 统计 ============ */
+  function computeStats() {
+    const db = Store.raw;
+    const keys = Object.keys(db.days || {}).sort();
+    let streak = 0, doneTasks = 0, fullDays = 0;
+
+    keys.forEach(k => {
+      const { items } = todayItems(k);
+      const dn = items.filter(it => Store.isDone(k, it.t)).length;
+      doneTasks += dn;
+      if (items.length && dn === items.length) fullDays++;
+    });
+
+    let cur = new Date();
+    if (!(db.days[ymd(cur)] && Object.keys(db.days[ymd(cur)]).length)) cur = addDays(cur, -1);
+    while (db.days[ymd(cur)] && Object.keys(db.days[ymd(cur)]).length) {
+      streak++;
+      cur = addDays(cur, -1);
+    }
+    return { streak, totalDays: keys.length, doneTasks, fullDays };
+  }
+
+  /* ============ 渲染 ============ */
+  function render() {
+    renderBanner();
+    const map = { today: viewToday, week: viewWeek, wrong: viewWrong, mood: viewMood, me: viewMe };
+    view.innerHTML = map[state.tab]();
+    view.scrollTop = 0;
+    $$('.tab').forEach(b => b.classList.toggle('active', b.dataset.tab === state.tab));
+    updateMeBadge();
+  }
+
+  /* 未激活时给「我的」Tab 加一个轻微的锁标，提示去激活（不干扰浏览） */
+  function updateMeBadge() {
+    const meTab = $('.tab[data-tab="me"]');
+    if (!meTab) return;
+    const locked = Store.licenseStatus().state !== 'active';
+    const badge = meTab.querySelector('.tab-lock');
+    if (locked && !badge) {
+      const b = document.createElement('span');
+      b.className = 'tab-lock'; b.textContent = '🔒';
+      meTab.appendChild(b);
+    } else if (!locked && badge) {
+      badge.remove();
+    }
+  }
+
+  /* ============ Toast ============ */
+  let toastTimer;
+  function toast(msg) {
+    const t = $('#toast');
+    t.textContent = msg;
+    t.hidden = false;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.hidden = true, 300); }, 1600);
+  }
+
+  /* ============ 番茄钟 ============ */
+  let pomo = { left: 1500, running: false, mode: 'work' };
+  function pomoTick() {
+    if (!pomo.running) return;
+    pomo.left--;
+    const el = $('#pomoTime');
+    if (el) el.textContent = pad(Math.floor(pomo.left / 60)) + ':' + pad(pomo.left % 60);
+    if (pomo.left <= 0) {
+      pomo.running = false;
+      toast(pomo.mode === 'work' ? '番茄完成，休息 5 分钟 ☕' : '休息结束，继续下一轮');
+      if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
+      pomo.mode = 'work'; pomo.left = 1500;
+      const e = $('#pomoTime'); if (e) e.textContent = '25:00';
+      return;
+    }
+    setTimeout(pomoTick, 1000);
+  }
+
+  /* ============ 事件 ============ */
+  // 这些动作会改动数据，未激活时必须先弹激活框
+  var GATE_ACTS = {
+    'toggle-day': 1, 'toggle-week': 1, 'toggle-sig': 1, 'mood': 1, 'save-note': 1,
+    'add-wrong': 1, 'review': 1, 'del-wrong': 1, 'plan': 1, 'save-settings': 1,
+    'reset': 1, 'import': 1
+  };
+  view.addEventListener('click', function (e) {
+    const el = e.target.closest('[data-act]');
+    if (!el) return;
+    const act = el.dataset.act, v = el.dataset.v;
+
+    // 未激活 + 改动型操作 → 弹激活框，不执行
+    if (act !== 'activate' && GATE_ACTS[act] && Store.licenseStatus().state !== 'active') {
+      showLicModal();
+      return;
+    }
+
+    switch (act) {
+      case 'home': {
+        if (v === 'pdf') { window.print(); return; }
+        state.tab = v;
+        if (v === 'week') state.week = mondayOf(parseYmd(state.date));
+        render();
+        break;
+      }
+      case 'day': {
+        const d = addDays(parseYmd(state.date), parseInt(v, 10));
+        if (d > new Date()) return;
+        state.date = ymd(d); render(); break;
+      }
+      case 'goto-day': { state.date = v; state.tab = 'today'; render(); break; }
+      case 'week': { state.week = addDays(state.week, parseInt(v, 10)); render(); break; }
+      case 'plan': {
+        Store.setSettings({ plan: v }); render(); toast('已切换为' + D.PLANS[v].name);
+        break;
+      }
+      case 'toggle-day': {
+        const cur = Store.isDone(state.date, v);
+        Store.setTask(state.date, v, !cur);
+        render();
+        if (!cur) {
+          const { items } = todayItems(state.date);
+          if (items.every(it => Store.isDone(state.date, it.t))) { toast('今日全部完成，太棒了 🎉'); if (navigator.vibrate) navigator.vibrate(60); }
+        }
+        break;
+      }
+      case 'toggle-week': {
+        const wk = weekKey(state.week);
+        Store.setWeekTask(wk, v, !Store.isWeekDone(wk, v));
+        render(); break;
+      }
+      case 'toggle-sig': {
+        const m = Store.getMood(state.date) || { score: 0, sleep: '', signals: [], note: '' };
+        const i = parseInt(v, 10);
+        const arr = m.signals || [];
+        const at = arr.indexOf(i);
+        if (at >= 0) arr.splice(at, 1); else arr.push(i);
+        m.signals = arr;
+        Store.setMood(state.date, m);
+        render(); break;
+      }
+      case 'mood': {
+        Store.setMood(state.date, { score: parseInt(v, 10) });
+        render(); break;
+      }
+      case 'save-note': {
+        const note = $('#mNote').value;
+        const sleep = $('#mSleep').value;
+        Store.setMood(state.date, { note, sleep });
+        toast('已保存'); break;
+      }
+      case 'wtag': {
+        $$('.tagchip', view).forEach(b => b.classList.toggle('on', b === el));
+        break;
+      }
+      case 'add-wrong': {
+        const text = $('#wText').value.trim();
+        if (!text) { toast('先写个题目摘要'); $('#wText').focus(); return; }
+        const tagEl = $('.tagchip.on', view);
+        Store.addWrong({
+          subject: $('#wSubject').value,
+          text: text,
+          tag: tagEl ? tagEl.dataset.v : 'concept',
+          date: state.date
+        });
+        render(); toast('已加入错题本，1 天后重做'); break;
+      }
+      case 'review': {
+        const [id, step] = v.split('|');
+        const w = Store.wrongs().find(x => x.id === id);
+        if (!w) return;
+        const rev = Object.assign({}, w.reviews);
+        rev[step] = true;
+        Store.updateWrong(id, { reviews: rev });
+        if (D.EBBINGHAUS.every(s => rev[s])) {
+          Store.updateWrong(id, { archived: true });
+          toast('连续全对，这题销号啦 ✨');
+        } else {
+          toast('已记录重做');
+        }
+        render(); break;
+      }
+      case 'del-wrong': {
+        if (confirm('删除这道错题？')) { Store.delWrong(v); render(); toast('已删除'); }
+        break;
+      }
+      case 'pomo': {
+        if (v === 'stop') { pomo.running = false; pomo.left = 1500; pomo.mode = 'work'; const e2 = $('#pomoTime'); if (e2) e2.textContent = '25:00'; toast('已重置'); return; }
+        pomo.mode = v === 'rest' ? 'rest' : 'work';
+        pomo.left = v === 'rest' ? 300 : 1500;
+        pomo.running = true;
+        const e3 = $('#pomoTime'); if (e3) e3.textContent = pad(Math.floor(pomo.left / 60)) + ':' + pad(pomo.left % 60);
+        toast(v === 'rest' ? '休息 5 分钟' : '开始专注 25 分钟');
+        pomoTick();
+        break;
+      }
+      case 'activate': {
+        const inp = $('#actCode');
+        const v = (inp && inp.value || '').trim();
+        if (!v) { toast('请先输入激活码'); if (inp) inp.focus(); return; }
+        const r = Store.activate(v);
+        if (r.ok) {
+          render();
+          toast(r.already ? '本设备已处于激活状态' : '激活成功，已解锁 3 年 🎉');
+          if (navigator.vibrate) navigator.vibrate(60);
+        } else {
+          toast(r.reason);
+        }
+        break;
+      }
+      case 'save-settings': {
+        Store.setSettings({
+          name: $('#setName').value.trim(),
+          startDate: $('#setStart').value || S().startDate,
+          plan: $('#setPlan').value
+        });
+        render(); toast('设置已保存'); break;
+      }
+      case 'export': {
+        const blob = new Blob([Store.exportJSON()], { type: 'application/json' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = '中考打卡备份_' + ymd(new Date()) + '.json';
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+        toast('备份已导出'); break;
+      }
+      case 'import': { $('#importFile').click(); break; }
+      case 'print': { window.print(); break; }
+      case 'reset': {
+        if (confirm('确定清空全部打卡数据？此操作不可恢复，建议先导出备份。')) {
+          Store.reset(); render(); toast('已清空');
+        }
+        break;
+      }
+    }
+  });
+
+  // 睡眠输入变化时保存（未激活不持久化，并提示激活）
+  view.addEventListener('change', function (e) {
+    if (e.target.id === 'mSleep') {
+      if (Store.licenseStatus().state !== 'active') { showLicModal(); return; }
+      Store.setMood(state.date, { sleep: e.target.value });
+    }
+  });
+
+  $('#importFile').addEventListener('change', function (e) {
+    const f = e.target.files[0];
+    if (!f) return;
+    const r = new FileReader();
+    r.onload = function () {
+      try { Store.importJSON(r.result); render(); toast('导入成功'); }
+      catch (err) { toast('导入失败：' + err.message); }
+    };
+    r.readAsText(f);
+    e.target.value = '';
+  });
+
+  document.querySelector('.tabbar').addEventListener('click', function (e) {
+    const b = e.target.closest('.tab');
+    if (!b) return;
+    state.tab = b.dataset.tab;
+    if (state.tab === 'week') state.week = mondayOf(parseYmd(state.date));
+    render();
+  });
+
+  // 激活弹窗：按钮在 #view 之外，单独绑定
+  const licModal = $('#licModal');
+  if (licModal) {
+    licModal.addEventListener('click', function (e) {
+      if (e.target === licModal) { hideLicModal(); return; }   // 点遮罩关闭
+      if (e.target.closest('#licModalAct')) { modalActivate(); return; }
+      if (e.target.closest('#licModalClose')) { hideLicModal(); return; }
+    });
+  }
+
+  /* ============ PWA ============ */
+  let deferredPrompt = null;
+  window.addEventListener('beforeinstallprompt', function (e) {
+    e.preventDefault();
+    deferredPrompt = e;
+  });
+
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      // 记录注册前是否已有 SW 在控制页面：无=首次安装，有=后续版本更新
+      var hadController = !!navigator.serviceWorker.controller;
+      navigator.serviceWorker.register('sw.js').then(function (reg) {
+        // 主动检查更新：线上文件变化后尽快拉取新版 SW
+        if (reg && reg.update) reg.update();
+        // 首次安装时页面本就是刚从网络取的最新内容，再刷新只会白闪一下，跳过；
+        // 仅当已有旧 SW、被新版接管后才刷新（避免老缓存壳卡住导致打不开）
+        if (!hadController) return;
+        var reloaded = false;
+        navigator.serviceWorker.addEventListener('controllerchange', function () {
+          if (reloaded) return;
+          reloaded = true;
+          location.reload();
+        });
+      }).catch(function (e) {
+        console.warn('SW 注册失败', e);
+      });
+    });
+  }
+
+  /* ============ 启动 ============ */
+  render();
+})();
+
+</script>
+
+<script>
+/* 自检：若 1.5 秒后主区域仍为空（说明脚本没跑起来），
+   把错误与环境信息直接显示在页面上，便于定位（微信等内置浏览器尤其有用） */
+setTimeout(function () {
+  try {
+    var v = document.getElementById('view');
+    if (!v || v.innerHTML.trim()) return;   // 已正常渲染则不打扰
+    var info = [
+      'DATA: ' + (typeof window.DATA),
+      'Store: ' + (typeof window.Store),
+      'LicenseCore: ' + (typeof window.LicenseCore),
+      '错误: ' + (window.__APP_ERRS.length ? window.__APP_ERRS.join(' | ') : '无'),
+      'UA: ' + navigator.userAgent
+    ].join('\n');
+    var safe = info.replace(/[<>&]/g, function (c) {
+      return { '<': '&lt;', '>': '&gt;', '&': '&amp;' }[c];
+    });
+    v.innerHTML = '<section class="card lock-card"><div class="lock-ico">! </div><h2>页面未能初始化</h2><pre style="white-space:pre-wrap;text-align:left;font-size:12px;line-height:1.6;background:#f6f7ff;padding:10px;border-radius:10px">' + safe + '</pre><button class="btn primary block" onclick="location.reload()">刷新重试</button></section>';
+  } catch (e) {}
+}, 1500);
+</script>
+</body>
+</html>

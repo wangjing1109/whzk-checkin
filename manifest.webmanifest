@@ -1,0 +1,18 @@
+{
+  "name": "武汉中考三年打卡 · AI学习资料库",
+  "short_name": "中考打卡",
+  "description": "2029 届武汉中考三年学习打卡表：每日/每周任务清单、艾宾浩斯错题本、情绪记录，断网也能打卡",
+  "lang": "zh-CN",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F3F4FF",
+  "theme_color": "#5B5FE3",
+  "categories": ["education", "productivity"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
