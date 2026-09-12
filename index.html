@@ -946,7 +946,9 @@ window.Store = (function () {
   }
 
   /* ============ 激活 / 授权 ============ */
-  /* 无试用期：未激活即锁定，必须输入激活码才可使用（解锁 3 年） */
+  /* 总开关：false = 暂不启用激活码，所有功能免费开放、无任何弹窗/锁定；
+     true  = 恢复「必须激活码才解锁 3 年」逻辑（改这一行即可重新开启） */
+  const LICENSE_ENABLED = false;
   const UNLOCK_YEARS = window.LicenseCore ? window.LicenseCore.UNLOCK_YEARS : 3;
 
   function pad2(n) { return n < 10 ? '0' + n : '' + n; }
@@ -976,6 +978,10 @@ window.Store = (function () {
   }
 
   function licenseStatus() {
+    // 激活码关闭时，一律视为已解锁：所有功能免费开放、无弹窗拦截、无锁屏
+    if (!LICENSE_ENABLED) {
+      return { state: 'active', daysLeft: 9999, expiry: ymdStr(addDays2(new Date(), Math.round(UNLOCK_YEARS * 365))) };
+    }
     const lic = ensureLicense();
     // 只有「已激活且未到期」才可用；未激活或已过期一律锁定，需要激活码
     if (lic.activated && lic.expiry) {
@@ -1032,6 +1038,7 @@ window.Store = (function () {
     wrongs, addWrong, updateWrong, delWrong,
     getMood, setMood,
     ensureLicense, licenseStatus, activate,
+    licenseEnabled: function () { return LICENSE_ENABLED; },
     isUnlocked: function () { return licenseStatus().state !== 'locked'; },
     getLicense: function () { return ensureLicense(); },
     exportJSON, importJSON, reset,
@@ -1547,6 +1554,7 @@ window.Store = (function () {
 
   /* ============ 授权状态卡（「我的」页顶部）============ */
   function licCard() {
+    if (!Store.licenseEnabled()) return '';   // 激活码关闭时，不显示此卡
     const lic = Store.licenseStatus();
     const L = Store.getLicense();
     let statusLine, body;
@@ -1954,29 +1962,58 @@ window.Store = (function () {
     deferredPrompt = e;
   });
 
+  /* 是否微信内置浏览器：提前判定（SW 注册与启动提示都要用，
+     不能放进 SW 判断里，否则 iOS 微信 WKWebView 无 SW 时会漏判） */
+  var isWeChat = /MicroMessenger/i.test(navigator.userAgent);
+
+  /* Service Worker 仅在非微信浏览器启用。
+     微信内置 WebView 对 SW 支持不稳：SW 一旦接管页面，其拦截的导航请求在微信代理下
+     常拿不到正常响应，导致首页白屏 / "点开链接跳转不了"。本应用资源已全部内联进
+     单个 HTML，本就不需要 SW 离线缓存，故微信里直接放弃 SW，并注销已存在的旧 SW，
+     必要时刷新一次切到纯网络模式（只触发一次，不会循环）。 */
   if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function () {
-      // 记录注册前是否已有 SW 在控制页面：无=首次安装，有=后续版本更新
-      var hadController = !!navigator.serviceWorker.controller;
-      navigator.serviceWorker.register('sw.js').then(function (reg) {
-        // 主动检查更新：线上文件变化后尽快拉取新版 SW
-        if (reg && reg.update) reg.update();
-        // 首次安装时页面本就是刚从网络取的最新内容，再刷新只会白闪一下，跳过；
-        // 仅当已有旧 SW、被新版接管后才刷新（避免老缓存壳卡住导致打不开）
-        if (!hadController) return;
-        var reloaded = false;
-        navigator.serviceWorker.addEventListener('controllerchange', function () {
-          if (reloaded) return;
-          reloaded = true;
-          location.reload();
+    if (isWeChat) {
+      navigator.serviceWorker.getRegistrations().then(function (regs) {
+        if (regs && regs.length) {
+          return Promise.all(regs.map(function (r) { return r.unregister(); }))
+            .then(function () { location.reload(); });
+        }
+      }).catch(function () {});
+    } else {
+      window.addEventListener('load', function () {
+        var hadController = !!navigator.serviceWorker.controller;
+        navigator.serviceWorker.register('sw.js').then(function (reg) {
+          if (reg && reg.update) reg.update();
+          if (!hadController) return;
+          var reloaded = false;
+          navigator.serviceWorker.addEventListener('controllerchange', function () {
+            if (reloaded) return;
+            reloaded = true;
+            location.reload();
+          });
+        }).catch(function (e) {
+          console.warn('SW 注册失败', e);
         });
-      }).catch(function (e) {
-        console.warn('SW 注册失败', e);
       });
-    });
+    }
   }
 
   /* ============ 启动 ============ */
+  /* 微信内轻提示：仍遇卡顿时引导用系统浏览器打开（非阻断、可关闭） */
+  try {
+    if (isWeChat) {
+      var _tip = document.createElement('div');
+      _tip.className = 'wx-tip';
+      _tip.setAttribute('style', 'position:fixed;top:0;left:0;right:0;z-index:9999;background:#fff7e6;color:#8a6d3b;font-size:12px;line-height:1.5;padding:7px 32px 7px 12px;text-align:center;border-bottom:1px solid #ffe8b3;box-shadow:0 1px 4px rgba(0,0,0,.06)');
+      _tip.innerHTML = '微信内打开若卡顿，点右上角 <b>···</b> 选「在浏览器打开」更稳';
+      var _cx = document.createElement('span');
+      _cx.setAttribute('style', 'position:absolute;right:8px;top:4px;font-size:16px;cursor:pointer;color:#bfa46a');
+      _cx.textContent = '×';
+      _cx.onclick = function () { _tip.remove(); };
+      _tip.appendChild(_cx);
+      document.body.insertBefore(_tip, document.body.firstChild);
+    }
+  } catch (e) {}
   render();
 })();
 
