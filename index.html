@@ -1966,36 +1966,17 @@ window.Store = (function () {
      不能放进 SW 判断里，否则 iOS 微信 WKWebView 无 SW 时会漏判） */
   var isWeChat = /MicroMessenger/i.test(navigator.userAgent);
 
-  /* Service Worker 仅在非微信浏览器启用。
-     微信内置 WebView 对 SW 支持不稳：SW 一旦接管页面，其拦截的导航请求在微信代理下
-     常拿不到正常响应，导致首页白屏 / "点开链接跳转不了"。本应用资源已全部内联进
-     单个 HTML，本就不需要 SW 离线缓存，故微信里直接放弃 SW，并注销已存在的旧 SW，
-     必要时刷新一次切到纯网络模式（只触发一次，不会循环）。 */
+  /* Service Worker 已废弃：本应用资源已全部内联进单个 HTML，本就不需要离线缓存；
+     且微信等内置浏览器对 SW 支持极不稳——"检测到旧 SW 就 reload"会陷入 reload 循环，
+     表现正是"有页面但点不动 / 跳转不了"。SW 只拦截网络请求，不拦截页面内 JS 点击，
+     故全环境仅一次性注销已存在的旧 SW，绝不再 register、绝不 reload
+     （reload 会让旧 SW 反复接管，越刷越卡）。注销后当前页面立即稳定可点。 */
   if ('serviceWorker' in navigator) {
-    if (isWeChat) {
-      navigator.serviceWorker.getRegistrations().then(function (regs) {
-        if (regs && regs.length) {
-          return Promise.all(regs.map(function (r) { return r.unregister(); }))
-            .then(function () { location.reload(); });
-        }
-      }).catch(function () {});
-    } else {
-      window.addEventListener('load', function () {
-        var hadController = !!navigator.serviceWorker.controller;
-        navigator.serviceWorker.register('sw.js').then(function (reg) {
-          if (reg && reg.update) reg.update();
-          if (!hadController) return;
-          var reloaded = false;
-          navigator.serviceWorker.addEventListener('controllerchange', function () {
-            if (reloaded) return;
-            reloaded = true;
-            location.reload();
-          });
-        }).catch(function (e) {
-          console.warn('SW 注册失败', e);
-        });
+    navigator.serviceWorker.getRegistrations().then(function (regs) {
+      (regs || []).forEach(function (r) {
+        try { r.unregister(); } catch (e) {}
       });
-    }
+    }).catch(function () {});
   }
 
   /* ============ 启动 ============ */
